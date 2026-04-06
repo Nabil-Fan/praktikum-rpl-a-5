@@ -1,7 +1,4 @@
 
-BOM
-cek Maria
-=======
 # Praktikum RPL — A - 5
 
 > Repositori resmi kelompok untuk mata kuliah **Rekayasa Perangkat Lunak**  
