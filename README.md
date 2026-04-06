@@ -59,7 +59,7 @@ praktikum-rpl-a-5/
 | Atribut         | Detail                          |
 |-----------------|---------------------------------|
 | Domain       | Lingkungan |
-| Role Utama   | Admin, User, dll.             |
+| Aktor Utama   | Admin, User, dll.             |
 | Fitur Inti   | Fitur 1, Fitur 2, Fitur 3     |
 
 ---
