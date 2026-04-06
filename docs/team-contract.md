@@ -105,30 +105,26 @@ Terima Tugas → Diskusi & Pembagian → Pengerjaan di Branch Sendiri
 Seluruh anggota **wajib** menggunakan format berikut:
 
 ```
-<type>(<scope>): <deskripsi singkat>
+<type>: <deskripsi singkat dalam bahasa Indonesia atau Inggris>
 ```
 
-### Tabel Type
+| Type       | Digunakan untuk                            |
+|------------|--------------------------------------------|
+| `feat`     | Menambahkan fitur baru                     |
+| `fix`      | Memperbaiki bug                            |
+| `docs`     | Perubahan dokumentasi                      |
+| `style`    | Perubahan format/tampilan (bukan logika)   |
+| `refactor` | Refactoring kode tanpa mengubah fungsi     |
+| `test`     | Menambah atau mengubah test                |
+| `chore`    | Update konfigurasi, dependency, dll.       |
 
-| Type | Kapan Digunakan |
-|---|---|
-| `feat` | Menambahkan fitur baru |
-| `fix` | Memperbaiki bug |
-| `docs` | Perubahan pada dokumentasi |
-| `style` | Perubahan format/styling (bukan logika) |
-| `refactor` | Refactoring kode tanpa mengubah perilaku |
-| `test` | Menambah atau memperbaiki test |
-| `chore` | Konfigurasi, dependency, atau tugas rutin |
-
-## Contoh 
+**Contoh:**
 ```
-feat(auth): tambah fitur login dengan email dan password
-fix(ui): perbaiki tampilan button yang overflow di mobile
-docs(readme): update daftar anggota tim
-test(api): tambah unit test untuk endpoint registrasi
+feat: tambah halaman login pengguna
+fix: perbaiki validasi input form registrasi
+docs: update README dengan instruksi setup
 ```
 
----
 
 
 
