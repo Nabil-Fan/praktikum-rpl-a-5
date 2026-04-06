@@ -18,10 +18,10 @@
 
 | No | Nama Lengkap | NIM | Peran | Tanggung Jawab Utama |
 |----|--------------|-----|-------|----------------------|
-| 1 | [Muhamad Nabil Fannani] | [L0124135] | **Ketua / Project Manager** | Koordinasi tim, memimpin meeting, memastikan deadline terpenuhi, mengelola isu di GitHub |
-| 2 | [Alena Mashia Qolby] | [L0124129] | **Developer** | Pengembangan sistem frontend dan backend  |
-| 3 | [Maria Dewi Handayani] | [L0124132] | **Developer** | Pengembangan sistem frontend dan backend  |
-| 4 | [Wiwid Widyaningsih] | [L0124123] | **QA & Dokumentasi** | Penulisan test, review kode, dan pemeliharaan dokumentasi |
+| 1 | Muhamad Nabil Fannani | L0124135 | **Ketua / Project Manager** | Koordinasi tim, memimpin meeting, memastikan deadline terpenuhi, mengelola isu di GitHub |
+| 2 | Alena Mashia Qolby | L0124129 | **Developer** | Pengembangan sistem frontend dan backend  |
+| 3 | Maria Dewi Handayani | L0124132 | **Developer** | Pengembangan sistem frontend dan backend  |
+| 4 | Wiwid Widyaningsih | L0124123 | **QA & Dokumentasi** | Penulisan test, review kode, dan pemeliharaan dokumentasi |
 
 ### Catatan Peran
 - Peran bersifat fleksibel, jadi anggota bisa saling membantu di luar peran masing-masing
@@ -36,7 +36,7 @@
 
 | Tipe Meeting | Hari | Waktu | Platform |
 |---|---|---|---|
-| Meeting Rutin | [Hari: Senin] | [Jam: 08.00-17:00 WIB] | [Offline] | 
+| Meeting Rutin | Senin | [Jam: 08.00-17:00 WIB] | [Offline] | 
 
 ### Aturan Meeting
 - Hadir tepat waktu. Maksimal keterlambatan maksimal 20 menit
@@ -58,7 +58,7 @@
 
 ## Aturan Komunikasi
 
-### 1. Jam Operasional Tim (Core Hours)
+### 1. Jam Operasional Kelompok
 Karna setiap anggota memiliki kesibukan lain, waktu operasional tim disepakati pada:
 - **Senin - Jumat:** Pukul 18.00 - 22.00 WIB
 - **Sabtu - Minggu:** Fleksibel 
