@@ -1,13 +1,10 @@
-# 🚀 Praktikum RPL — [Kelas]-[Nomor Kelompok]
+# Praktikum RPL — A - 5
 
 > Repositori resmi kelompok untuk mata kuliah **Rekayasa Perangkat Lunak**  
-> Semester Genap 2024/2025 — Universitas [Nama Universitas]
-
+> Semester Genap 2025/2026 — Universitas Universitas Sebelas Maret
 ---
 
 ## Tentang Repositori
-
-Repositori ini digunakan sebagai wadah kolaborasi tim dalam pengerjaan praktikum Rekayasa Perangkat Lunak. Seluruh dokumentasi, kode sumber, dan artefak pengujian dikelola di sini menggunakan **Git Feature Branch Workflow**.
 
 | Atribut     | Detail                          |
 |-------------|---------------------------------|
