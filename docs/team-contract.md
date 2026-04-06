@@ -19,9 +19,9 @@
 | No | Nama Lengkap | NIM | Peran | Tanggung Jawab Utama |
 |----|--------------|-----|-------|----------------------|
 | 1 | Muhamad Nabil Fannani | L0124135 | **Ketua / Project Manager** | Koordinasi tim, memimpin meeting, memastikan deadline terpenuhi, mengelola isu di GitHub |
-| 2 | Alena Mashia Qolby | L0124129 | **Developer** | Pengembangan sistem frontend dan backend  |
-| 3 | Maria Dewi Handayani | L0124132 | **Developer** | Pengembangan sistem frontend dan backend  |
-| 4 | Wiwid Widyaningsih | L0124123 | **QA & Dokumentasi** | Penulisan test, review kode, dan pemeliharaan dokumentasi |
+| 2 | Wiwid Widyaningsih | L0124123 | **Developer** | Pengembangan sistem frontend dan backend  |
+| 3 | Alena Mashia Qolby | L0124139 | **Developer** | Pengembangan sistem frontend dan backend  |
+| 4 | Maria Dewi Handayani | L0124132 | **QA & Dokumentasi** | Penulisan test, review kode, dan pemeliharaan dokumentasi |
 
 ### Catatan Peran
 - Peran bersifat fleksibel, jadi anggota bisa saling membantu di luar peran masing-masing
@@ -36,7 +36,7 @@
 
 | Tipe Meeting | Hari | Waktu | Platform |
 |---|---|---|---|
-| Meeting Rutin | Senin | [Jam: 08.00-17:00 WIB] | [Offline] | 
+| Meeting Rutin | Senin | Jam: 08.00-17:00 WIB | Offline | 
 
 ### Aturan Meeting
 - Hadir tepat waktu. Maksimal keterlambatan maksimal 20 menit
@@ -51,7 +51,7 @@
 | Keperluan | Platform |
 |---|---|
 | Komunikasi harian | WhatsApp |
-| Meeting & diskusi | Google Meet] |
+| Meeting & diskusi | Google Meet |
 | Kolaborasi kode | GitHub |
 
 ---
@@ -72,7 +72,7 @@ Setiap anggota tim berkomitmen untuk mematuhi batas waktu respons berikut:
 - **Keadaan Darurat/Urgent:** Jika ada error kritis atau tenggat waktu tugas tinggal 24 jam, anggota wajib merespons maksimal dalam **2 jam**. Pemanggil berhak menelepon langsung jika tidak ada respon sama sekali
 
 ### 3. Budaya Komunikasi & Etika
- Setiap kali membaca pesan yang berisi instruksi atau pembagian tugas, anggota wajib merespons agar pengirim tau pesannya sudah tersampaikan
+- Setiap kali membaca pesan yang berisi instruksi atau pembagian tugas, anggota wajib merespons agar pengirim tau pesannya sudah tersampaikan
 - **Pemberitahuan Ketidakhadiran (Izin):** Jika seorang anggota berhalangan hadir dalam rapat, sedang sakit, atau tidak bisa mengerjakan tugas selama lebih dari 24 jam, **wajib** menginformasikan ke grup maksimal 12 jam sebelumnya atau sesegera mungkin.
 
 ### 4. Mekanisme Eskalasi & Sanksi 
