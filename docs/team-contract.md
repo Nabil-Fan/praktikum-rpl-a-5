@@ -20,7 +20,7 @@
 |----|--------------|-----|-------|----------------------|
 | 1 | Muhamad Nabil Fannani | L0124135 | **Ketua / Project Manager** | Koordinasi tim, memimpin meeting, memastikan deadline terpenuhi, mengelola isu di GitHub |
 | 2 | Wiwid Widyaningsih | L0124123 | **Developer** | Pengembangan sistem frontend dan backend  |
-| 3 | Alena Mashia Qolby | L0124139 | **Developer** | Pengembangan sistem frontend dan backend  |
+| 3 | Alena Mashia Qolby | L0124129 | **Developer** | Pengembangan sistem frontend dan backend  |
 | 4 | Maria Dewi Handayani | L0124132 | **QA & Dokumentasi** | Penulisan test, review kode, dan pemeliharaan dokumentasi |
 
 ### Catatan Peran
