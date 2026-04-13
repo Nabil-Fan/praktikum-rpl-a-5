@@ -161,6 +161,19 @@ As an **admin**, I want to review and verify or reject new merchant account appl
 
 ---
 
+## Others
+
+### US-14 — Memberikan Rating setelah Pesanan Selesai
+
+**User Story:**
+As a **user**, I want memberikan rating dan ulasan kepada merchant setelah pesanan selesai diambil, so that pengguna lain dapat memilih merchant yang terpercaya dan berkualitas.
+
+**Acceptance Criteria:**
+- **AC-1:** Given pesanan saya berstatus "Selesai", When saya membuka riwayat pesanan dan menekan "Beri Rating", Then saya dapat memilih bintang 1–5 dan menuliskan ulasan lalu menekan "Kirim."
+- **AC-2:** Given saya sudah memberikan rating pada pesanan tersebut, When saya membuka riwayat pesanan yang sama, Then tombol "Beri Rating" tidak muncul dan ulasan saya sudah tampil di halaman profil merchant.
+
+---
+
 ## Rekap User Stories
 
 | ID | Fitur | Role | Prioritas |
@@ -178,3 +191,4 @@ As an **admin**, I want to review and verify or reject new merchant account appl
 | US-11 | Pemesanan Makanan | Mitra Merchant | Should-have |
 | US-12 | Verifikasi Merchant | Mitra Merchant | Must-have |
 | US-13 | Verifikasi Merchant | Admin | Must-have |
+| US-14 | Memberikan Rating | User | Won't-have |
