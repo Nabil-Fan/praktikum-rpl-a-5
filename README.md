@@ -147,7 +147,6 @@ docs: update README dengan instruksi setup
 | Branch `dev` dibuat dan dijadikan default  | ✅ |
 | Setiap anggota merge minimal 1 Pull Request| ✅ |
 | Topik diregistrasi di Google Sheet         | ✅ |
-| Issue `[SUBMISSION] P1 Evidence` dibuat    | ✅ |
 
 > Keterangan: ✅ Selesai &nbsp;|&nbsp; 🔄 Dalam Proses &nbsp;|&nbsp; ❌ Belum Dimulai
 
