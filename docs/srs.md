@@ -1,13 +1,10 @@
-# Software Requirements Specification (SRS) Ringkas
-## EcoEats — Platform Makanan Surplus Kota Solo
-
----
+# Software Requirements Specification (SRS) - EcoEats 
 
 ## BAB I — Pendahuluan
 
 ### 1.1 Tujuan Dokumen
 
-Dokumen ini merupakan Software Requirements Specification (SRS) ringkas untuk platform **EcoEats**, sebuah aplikasi yang menghubungkan pelaku usaha kuliner di Kota Solo dengan konsumen yang ingin membeli makanan surplus dengan harga terjangkau. SRS ini menjadi acuan bagi tim pengembang, pihak-pihak terkait, dan asisten praktikum dalam memahami ruang lingkup, kebutuhan fungsional, dan kebutuhan non-fungsional sistem selama siklus pengembangan berlangsung.
+Dokumen ini merupakan Software Requirements Specification (SRS) untuk platform **EcoEats**, sebuah aplikasi yang menghubungkan pelaku usaha kuliner di Kota Solo dengan konsumen yang ingin membeli makanan surplus dengan harga terjangkau. SRS ini menjadi acuan bagi tim pengembang, pihak-pihak terkait, dan asisten praktikum dalam memahami ruang lingkup, kebutuhan fungsional, dan kebutuhan non-fungsional sistem selama siklus pengembangan berlangsung.
 
 Dokumen ini disusun sebagai bagian dari laporan Praktikum Rekayasa Perangkat Lunak P3 dan merujuk pada artefak P2 berupa problem statement, user stories, dan backlog yang telah divalidasi sebelumnya.
 
