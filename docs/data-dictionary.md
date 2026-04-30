@@ -1,10 +1,5 @@
 # Data Dictionary — EcoEats
 
-> Dokumen ini mendokumentasikan seluruh tabel dan kolom pada basis data platform EcoEats.
-> Dibuat sebagai bagian dari artefak P4 — Praktikum Rekayasa Perangkat Lunak.
-
----
-
 ## Tabel: `users`
 
 Menyimpan semua akun pengguna platform (user biasa, merchant, dan admin). Peran dibedakan menggunakan kolom `role`.
