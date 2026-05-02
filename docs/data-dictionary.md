@@ -114,11 +114,11 @@ Menyimpan log riwayat keputusan verifikasi yang dilakukan admin terhadap pengaju
 
 | Dari | Ke | Kardinalitas | Keterangan |
 |---|---|---|---|
-| `users` |  | `merchant_profiles` | 1 : 0..1 | Satu user (merchant) memiliki satu profil merchant |
+| `users` | `merchant_profiles` | 1 : 0..1 | Satu user (merchant) memiliki satu profil merchant |
 | `merchant_profiles` |  | `food_listings` | 1 : N | Satu merchant dapat memposting banyak listing makanan |
-| `users` |  | `orders` | 1 : N | Satu user dapat membuat banyak pesanan |
+| `users` | `orders` | 1 : N | Satu user dapat membuat banyak pesanan |
 | `merchant_profiles` |  | `orders` | 1 : N | Satu merchant dapat menerima banyak pesanan |
-| `orders` |  | `order_items` | 1 : N | Satu pesanan berisi satu atau lebih item |
-| `food_listings` |  | `order_items` | 1 : N | Satu listing dapat muncul di banyak pesanan berbeda |
-| `merchant_profiles` |  | `merchant_verifications` | 1 : N | Satu merchant bisa memiliki riwayat beberapa kali verifikasi |
-| `users` (admin) |  | `merchant_verifications` | 1 : N | Satu admin dapat menangani banyak verifikasi |
+| `orders` | `order_items` | 1 : N | Satu pesanan berisi satu atau lebih item |
+| `food_listings` | `order_items` | 1 : N | Satu listing dapat muncul di banyak pesanan berbeda |
+| `merchant_profiles` | `merchant_verifications` | 1 : N | Satu merchant bisa memiliki riwayat beberapa kali verifikasi |
+| `users` (admin) | `merchant_verifications` | 1 : N | Satu admin dapat menangani banyak verifikasi |
