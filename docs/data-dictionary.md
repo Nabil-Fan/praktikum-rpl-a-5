@@ -164,3 +164,4 @@ Menyimpan log riwayat keputusan verifikasi yang dilakukan admin terhadap pengaju
 | `orders` | `payments` | 1 : N | Satu pesanan dapat memiliki beberapa record pembayaran (retry) |
 | `merchant_profiles` | `merchant_verifications` | 1 : N | Satu merchant bisa memiliki riwayat beberapa kali verifikasi |
 | `users` (admin) | `merchant_verifications` | 1 : N | Satu admin dapat menangani banyak verifikasi |
+| `food_listings` | `orders` | M : N | Satu listing dapat dipesan di banyak pesanan, satu pesanan dapat berisi banyak listing (ditangani oleh junction table order_items) |
