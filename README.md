@@ -36,8 +36,7 @@ praktikum-rpl-a-5/
 │   ├── backlog.md                # daftar prioritas user story
 │   ├── data-dictionary.md        # dokumentasi kolom entitas ERD
 │   ├── erd.png                   # struktur data sistem
-│   ├── problem-statement.md      # masalah yang ingin
-diselesaikan
+│   ├── problem-statement.md      # masalah yang ingin diselesaikan
 │   ├── srs.md                    # apa yang harus dilaakukan software
 │   ├── team-contract.md          # kontrak kelompok
 │   ├── user-stories.md           # deskripsi kebutuhan dari pov user
