@@ -32,18 +32,30 @@
 ```
 praktikum-rpl-a-5/
 │
-├── docs/                       # Dokumentasi
-│   ├── team-contract.md        # Kontrak kelompok
-│   ├── requirements/           # Dokumen kebutuhan sistem
-│   └── diagram/                # Diagram UML, ERD, dll
+├── docs/                       # dokumentasi
+│   ├── backlog.md                # daftar prioritas user story
+│   ├── data-dictionary.md        # dokumentasi kolom entitas ERD
+│   ├── erd.png                   # struktur data sistem
+│   ├── problem-statement.md      # masalah yang ingin
+diselesaikan
+│   ├── srs.md                    # apa yang harus dilaakukan software
+│   ├── team-contract.md          # kontrak kelompok
+│   ├── user-stories.md           # deskripsi kebutuhan dari pov user
+│   ├── requirements/             # dokumen kebutuhan sistem
+│   ├── uml/                      # diagram use case, activity, dll
+│   │   ├── activity-diagram.png        # menggambarkan fungsionalitas dari pov user   
+│   │   ├── class-diagram.png           # menggambarkan alur kerja
+│   │   └── use-case-diagram.png        # menggambarkan struktur statis sistem:
+│   └── wireframes/
+│       └── figma.md            # link ke desain wireframe figma
 │
-├── src/                        # Kode aplikasi
-│   ├── main/                   # Kode utama
+├── src/                        # kode aplikasi
+│   ├── main/                   # kode utama
 │
-├── tests/                      # File pengujian
+├── tests/                      # file pengujian
 │
-├── .gitignore                  # File yang diabaikan git
-└── README.md                   # Dokumentasi
+├── .gitignore                  # file yang diabaikan git
+└── README.md                   # dokumentasi
 ```
 
 ---
