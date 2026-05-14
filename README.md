@@ -51,14 +51,14 @@ praktikum-rpl-a-5/
 ## Topik Proyek
 
 ### Judul Sementara
-> **PeduliLingkungan**
+> **EcoEats**
 
 ### Deskripsi Singkat
-> *Sistem Pelaporan Masalah Lingkungan Warga*
+> *EcoEats adalah platform digital yang dirancang untuk memfasilitasi jual-beli makanan surplus dari mitra merchant (restoran, kafe, katering, toko roti, warung, hotel) kepada pengguna umum di wilayah Kota Solo.*
 
 | Atribut         | Detail                          |
 |-----------------|---------------------------------|
-| Domain       | Lingkungan |
+| Domain       | Marketplace |
 | Aktor Utama   | Admin, User, dll.             |
 | Fitur Inti   | Fitur 1, Fitur 2, Fitur 3     |
 
