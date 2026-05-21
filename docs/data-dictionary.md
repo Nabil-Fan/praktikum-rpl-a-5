@@ -1,6 +1,5 @@
 # Data Dictionary — EcoEats
 
-
 ## Tabel: `users`
 
 Menyimpan semua akun pengguna platform (user biasa, merchant, dan admin). Peran dibedakan menggunakan kolom `role`.
@@ -19,7 +18,7 @@ Menyimpan semua akun pengguna platform (user biasa, merchant, dan admin). Peran 
 
 ---
 
-## Tabel: `categories` 
+## Tabel: `categories`
 
 Menyimpan daftar kategori makanan yang digunakan oleh `food_listings`.
 
@@ -79,6 +78,8 @@ Menyimpan daftar makanan surplus yang dipublikasikan oleh merchant.
 
 Menyimpan transaksi pemesanan yang dilakukan user kepada merchant.
 
+> **Changelog:** Ditambahkan kolom `cancelled_at`, `cancelled_by`, dan `cancellation_reason` untuk mendukung audit trail pembatalan pesanan. Kolom ditempatkan di tabel ini (bukan `merchant_profiles`) karena alasan pembatalan bersifat per-transaksi — satu merchant dapat memiliki banyak pesanan dengan alasan pembatalan yang berbeda.
+
 | Kolom | Tipe Data | Constraint | Keterangan |
 |---|---|---|---|
 | `id` | INT | PK, AUTO_INCREMENT | ID unik pesanan |
@@ -94,28 +95,31 @@ Menyimpan transaksi pemesanan yang dilakukan user kepada merchant.
 | `completed_at` | TIMESTAMP | NULL | Waktu pesanan selesai (pickup berhasil) |
 | `rejected_at` | TIMESTAMP | NULL | Waktu merchant menolak pesanan. Diisi saat status berubah ke `rejected` |
 | `expired_at` | TIMESTAMP | NULL | Waktu pesanan kadaluarsa secara aktual. Diisi oleh scheduler saat status diubah ke `expired` |
+| `cancelled_at` | TIMESTAMP | NULL | ✨ **Baru** — Waktu pembatalan dilakukan. NULL jika pesanan tidak dibatalkan |
+| `cancelled_by` | ENUM('user', 'merchant', 'system') | NULL | ✨ **Baru** — Aktor yang melakukan pembatalan. NULL jika pesanan tidak dibatalkan |
+| `cancellation_reason` | TEXT | NULL | ✨ **Baru** — Alasan pembatalan pesanan untuk keperluan audit. Diisi saat status berubah ke `rejected`. NULL jika pesanan tidak dibatalkan |
 | `updated_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | Waktu terakhir record diperbarui |
 
 > **Catatan:** Kolom `payment_status` dihapus dari tabel ini dan dipindahkan ke tabel `payments` yang lebih lengkap.
 
 ---
 
-## Tabel: `payments` 
+## Tabel: `payments`
 
 Menyimpan riwayat attempt pembayaran untuk setiap pesanan. Dipisahkan dari `orders` agar mendukung multi-gateway (Midtrans, Xendit, manual), retry pembayaran, dan audit riwayat.
 
 | Kolom | Tipe Data | Constraint | Keterangan |
 |---|---|---|---|
-|  `id` | INT | PK, AUTO_INCREMENT | ID unik record pembayaran |
-|  `order_id` | INT | FK → orders.id, NOT NULL | Referensi ke pesanan terkait. Satu order dapat memiliki lebih dari satu record (retry) |
-|  `payment_gateway` | VARCHAR(50) | NOT NULL | Nama gateway yang digunakan, misal: `midtrans`, `xendit`, `manual` |
-|  `transaction_id` | VARCHAR(255) | NULL | ID transaksi dari pihak payment gateway. NULL jika pembayaran manual atau belum diproses |
-|  `amount` | DECIMAL(10,2) | NOT NULL | Nominal yang dibayarkan pada attempt ini |
-|  `status` | ENUM('pending', 'paid', 'failed', 'refunded', 'expired') | NOT NULL, DEFAULT 'pending' | Status pembayaran pada attempt ini |
-|  `payment_proof_url` | VARCHAR(500) | NULL | URL bukti transfer untuk metode manual. NULL jika menggunakan gateway otomatis |
-|  `paid_at` | TIMESTAMP | NULL | Waktu pembayaran dikonfirmasi berhasil. NULL jika belum lunas |
-|  `expired_at` | TIMESTAMP | NULL | Batas waktu pembayaran dari gateway. NULL jika tidak ada batas dari gateway |
-|  `created_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Waktu attempt pembayaran dibuat |
+| `id` | INT | PK, AUTO_INCREMENT | ID unik record pembayaran |
+| `order_id` | INT | FK → orders.id, NOT NULL | Referensi ke pesanan terkait. Satu order dapat memiliki lebih dari satu record (retry) |
+| `payment_gateway` | VARCHAR(50) | NOT NULL | Nama gateway yang digunakan, misal: `midtrans`, `xendit`, `manual` |
+| `transaction_id` | VARCHAR(255) | NULL | ID transaksi dari pihak payment gateway. NULL jika pembayaran manual atau belum diproses |
+| `amount` | DECIMAL(10,2) | NOT NULL | Nominal yang dibayarkan pada attempt ini |
+| `status` | ENUM('pending', 'paid', 'failed', 'refunded', 'expired') | NOT NULL, DEFAULT 'pending' | Status pembayaran pada attempt ini |
+| `payment_proof_url` | VARCHAR(500) | NULL | URL bukti transfer untuk metode manual. NULL jika menggunakan gateway otomatis |
+| `paid_at` | TIMESTAMP | NULL | Waktu pembayaran dikonfirmasi berhasil. NULL jika belum lunas |
+| `expired_at` | TIMESTAMP | NULL | Batas waktu pembayaran dari gateway. NULL jika tidak ada batas dari gateway |
+| `created_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Waktu attempt pembayaran dibuat |
 
 ---
 
@@ -150,6 +154,30 @@ Menyimpan log riwayat keputusan verifikasi yang dilakukan admin terhadap pengaju
 
 ---
 
+## Tabel: `withdrawals`
+
+**Tabel baru** — Menyimpan riwayat permintaan pencairan dana (withdrawal) dari saldo merchant ke rekening bank. Saldo merchant bertambah setiap kali pesanan berstatus `completed` dan pembayaran user telah dikonfirmasi. Merchant kemudian mengajukan withdrawal untuk mencairkan saldo tersebut.
+
+> **Catatan:** Saldo merchant yang dapat ditarik dihitung dari total `payments` berstatus `paid` dikurangi total `withdrawals` berstatus `completed` per merchant.
+
+| Kolom | Tipe Data | Constraint | Keterangan |
+|---|---|---|---|
+| `id` | INT | PK, AUTO_INCREMENT | ID unik record penarikan dana |
+| `merchant_id` | INT | FK → merchant_profiles.id, NOT NULL | Referensi ke merchant yang mengajukan penarikan |
+| `amount` | DECIMAL(10,2) | NOT NULL | Nominal dana yang diminta untuk dicairkan |
+| `bank_name` | VARCHAR(100) | NOT NULL | Nama bank tujuan pencairan, misal: BCA, BRI, Mandiri |
+| `bank_account_number` | VARCHAR(50) | NOT NULL | Nomor rekening bank tujuan pencairan |
+| `bank_account_name` | VARCHAR(150) | NOT NULL | Nama pemilik rekening sesuai data bank (untuk verifikasi) |
+| `status` | ENUM('pending', 'processing', 'completed', 'rejected') | NOT NULL, DEFAULT 'pending' | Status proses pencairan dana. `pending` = menunggu diproses admin; `processing` = sedang ditransfer; `completed` = dana berhasil dikirim; `rejected` = ditolak |
+| `admin_id` | INT | FK → users.id, NULL | Referensi ke admin yang memproses atau menolak withdrawal. NULL jika belum diproses |
+| `admin_notes` | TEXT | NULL | Catatan dari admin, misal alasan penolakan. NULL jika tidak ada catatan |
+| `transfer_proof_url` | VARCHAR(500) | NULL | URL bukti transfer dari admin setelah dana berhasil dikirim. NULL jika belum selesai |
+| `requested_at` | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Waktu merchant mengajukan permintaan withdrawal |
+| `processed_at` | TIMESTAMP | NULL | Waktu admin mulai memproses withdrawal. NULL jika masih pending |
+| `completed_at` | TIMESTAMP | NULL | Waktu dana berhasil dikirim ke rekening merchant. NULL jika belum selesai |
+
+---
+
 ## Ringkasan Relasi Antar Tabel
 
 | Dari | Ke | Kardinalitas | Keterangan |
@@ -164,4 +192,6 @@ Menyimpan log riwayat keputusan verifikasi yang dilakukan admin terhadap pengaju
 | `orders` | `payments` | 1 : N | Satu pesanan dapat memiliki beberapa record pembayaran (retry) |
 | `merchant_profiles` | `merchant_verifications` | 1 : N | Satu merchant bisa memiliki riwayat beberapa kali verifikasi |
 | `users` (admin) | `merchant_verifications` | 1 : N | Satu admin dapat menangani banyak verifikasi |
+| `merchant_profiles` | `withdrawals` | 1 : N | Satu merchant dapat mengajukan banyak permintaan pencairan dana |
+| `users` (admin) | `withdrawals` | 1 : N | Satu admin dapat memproses banyak permintaan pencairan dana |
 | `food_listings` | `orders` | M : N | Satu listing dapat dipesan di banyak pesanan, satu pesanan dapat berisi banyak listing (ditangani oleh junction table order_items) |
