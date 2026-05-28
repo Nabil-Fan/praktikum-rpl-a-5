@@ -1,0 +1,8 @@
+# AI Usage Log — EcoEats
+
+| Tanggal | Anggota | Tools + Prompt | Output + Verifikasi |
+|---|---|---|---|
+| 21 Mei 2026 | Alena | Claude — Buatkan Bagian A berupa ringkasan masalah dan solusi berdasarkan problem statement yang sudah saya berikan sebelumnya | Output: "Masyarakat umum, komunitas, dan lembaga sosial di Kota Solo kesulitan menemukan informasi makanan surplus dari pelaku usaha kuliner menjelang akhir jam operasional, sementara mitra merchant menghadapi kerugian finansial akibat makanan tidak terjual yang akhirnya terbuang sia-sia... (dst)". Verifikasi: Draft telah ditinjau dan disesuaikan redaksinya oleh tim sebelum dimasukkan ke dokumen. |
+| 21 Mei 2026 | Alena | Claude — Lengkapi tabel task breakdown Bagian D untuk fitur Login User dan Pemesanan | Output: Tabel task breakdown dengan 5 task untuk Login User (membuat form autentikasi, membuat database user, endpoint auth, JWT token) dan 5 task untuk Pemesanan (dashboard mobile, backend pembayaran, endpoint orders, database order, notifikasi). Verifikasi: Estimasi dan PIC disesuaikan dengan pembagian kerja tim. |
+| 21 Mei 2026 | Alena | Claude — Buatkan timeline 2 sprint berdasarkan user story yang telah dibuat | Output: Sprint 1 Minggu 1 (setup repo, auth), Minggu 2 (manajemen menu, verifikasi merchant). Sprint 2 Minggu 3 (pemesanan, GPS), Minggu 4 (rating, testing, dokumentasi). Verifikasi: Deliverable per minggu disesuaikan dengan jadwal akademik tim. |
+
