@@ -3,307 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoEats — Admin Panel</title>
+    <title>Dashboard — EcoEats Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --olive:     #5F6F52;
-            --laurel:    #A9B388;
-            --cornsilk:  #FEFAE0;
-            --camel:     #B99470;
-            --charcoal:  #382C23;
-            --font-d:    'Fraunces', serif;
-            --font-b:    'Plus Jakarta Sans', sans-serif;
+            --olive:    #5F6F52;
+            --laurel:   #A9B388;
+            --cornsilk: #FEFAE0;
+            --camel:    #B99470;
+            --charcoal: #382C23;
+            --bg:       #eee9df;
+            --white:    #ffffff;
+            --font-d:   'Fraunces', serif;
+            --font-b:   'Plus Jakarta Sans', sans-serif;
+            --radius:   14px;
+            --shadow:   0 1px 3px rgba(56,44,35,.06), 0 4px 16px rgba(56,44,35,.07);
         }
 
-        body {
-            font-family: var(--font-b);
-            background: #ece8df;
-            color: var(--charcoal);
-            min-height: 100vh;
-        }
+        body { font-family: var(--font-b); background: var(--bg); color: var(--charcoal); min-height: 100vh; }
 
         /* ── TOPBAR ── */
         header {
             background: var(--charcoal);
-            height: 56px;
+            height: 58px;
             display: flex; align-items: center;
-            padding: 0 2rem;
-            gap: 1.5rem;
+            padding: 0 1.75rem;
+            gap: 1.25rem;
             position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,.2);
         }
-        .header-brand { font-family: var(--font-d); font-size: 1.2rem; color: var(--cornsilk); }
-        .header-sep { width: 1px; height: 20px; background: rgba(254,250,224,.15); }
-        .header-label {
-            font-size: .7rem; font-weight: 700; letter-spacing: .12em;
-            text-transform: uppercase; color: var(--camel);
+        .h-brand { font-family: var(--font-d); font-size: 1.15rem; color: var(--cornsilk); display: flex; align-items: center; gap: .4rem; }
+        .h-sep { width: 1px; height: 18px; background: rgba(254,250,224,.12); }
+        .h-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--camel); }
+        .h-right { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
+        .h-user { font-size: .8rem; color: rgba(254,250,224,.65); }
+        .h-user strong { color: var(--cornsilk); font-weight: 600; }
+        .btn-out {
+            padding: .32rem .8rem;
+            background: transparent; border: 1.5px solid rgba(254,250,224,.18);
+            color: rgba(254,250,224,.55); border-radius: 999px;
+            font-family: var(--font-b); font-size: .73rem; font-weight: 600;
+            cursor: pointer; transition: all .2s;
         }
-        .header-right { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
-        .header-admin { font-size: .82rem; color: rgba(254,250,224,.7); }
-        .btn-logout {
-            padding: .35rem .85rem;
-            background: transparent;
-            border: 1.5px solid rgba(254,250,224,.2);
-            color: rgba(254,250,224,.6);
-            border-radius: 999px;
-            font-family: var(--font-b); font-size: .75rem; font-weight: 600;
-            cursor: pointer;
-            transition: all .2s;
-        }
-        .btn-logout:hover { border-color: rgba(254,250,224,.5); color: var(--cornsilk); }
+        .btn-out:hover { border-color: rgba(254,250,224,.45); color: var(--cornsilk); }
 
         /* ── LAYOUT ── */
-        .layout { display: flex; min-height: calc(100vh - 56px); }
+        .layout { display: flex; min-height: calc(100vh - 58px); }
 
         /* ── SIDENAV ── */
         .sidenav {
-            width: 200px;
-            background: white;
-            border-right: 1px solid rgba(56,44,35,.08);
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 56px;
-            height: calc(100vh - 56px);
-            overflow-y: auto;
+            width: 210px; background: var(--white);
+            border-right: 1px solid rgba(56,44,35,.07);
+            padding: 1.25rem 0;
+            position: sticky; top: 58px;
+            height: calc(100vh - 58px); overflow-y: auto;
+            flex-shrink: 0;
         }
-        .sidenav-label {
-            font-size: .62rem; font-weight: 700; letter-spacing: .12em;
-            text-transform: uppercase; color: rgba(56,44,35,.3);
-            padding: .5rem 1.25rem .25rem;
+        .sn-label {
+            font-size: .6rem; font-weight: 700; letter-spacing: .13em;
+            text-transform: uppercase; color: rgba(56,44,35,.28);
+            padding: .65rem 1.25rem .2rem;
         }
-        .sidenav-item {
-            display: flex; align-items: center; gap: .65rem;
-            padding: .55rem 1.25rem;
-            font-size: .82rem;
-            color: rgba(56,44,35,.55);
+        .sn-item {
+            display: flex; align-items: center; gap: .6rem;
+            padding: .52rem 1.25rem;
+            font-size: .8rem; color: rgba(56,44,35,.5);
             text-decoration: none;
-            border-left: 2px solid transparent;
+            border-left: 2.5px solid transparent;
             transition: all .15s;
         }
-        .sidenav-item:hover { color: var(--charcoal); background: rgba(56,44,35,.03); }
-        .sidenav-item.active {
-            color: var(--charcoal);
-            border-left-color: var(--olive);
-            background: rgba(95,111,82,.06);
-            font-weight: 600;
-        }
+        .sn-item:hover { color: var(--charcoal); background: rgba(56,44,35,.025); }
+        .sn-item.active { color: var(--charcoal); border-left-color: var(--olive); background: rgba(95,111,82,.06); font-weight: 600; }
+        .sn-icon { width: 18px; text-align: center; font-size: .95rem; }
 
         /* ── CONTENT ── */
-        .content { flex: 1; padding: 2rem 2rem 3rem; overflow-x: auto; }
+        .content { flex: 1; padding: 2rem 2.25rem 4rem; overflow-x: hidden; }
 
         /* Page header */
-        .page-header { margin-bottom: 1.75rem; }
-        .page-header h1 { font-family: var(--font-d); font-size: 1.5rem; color: var(--charcoal); }
-        .breadcrumb { font-size: .75rem; color: var(--camel); margin-top: .25rem; }
+        .pg-head { margin-bottom: 1.75rem; }
+        .pg-head h1 { font-family: var(--font-d); font-size: 1.55rem; font-weight: 700; color: var(--charcoal); }
+        .pg-crumb { font-size: .73rem; color: var(--camel); margin-top: .2rem; }
 
-        /* Summary cards */
-        .summary-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
+        /* Flash messages */
+        .flash {
+            padding: .75rem 1rem; border-radius: 10px;
+            font-size: .83rem; margin-bottom: 1.25rem;
+            display: flex; align-items: center; gap: .5rem;
         }
-        .sum-card {
-            background: white;
-            border-radius: 12px;
+        .flash-success { background: rgba(95,111,82,.1); border: 1px solid rgba(95,111,82,.25); color: var(--olive); }
+        .flash-error   { background: rgba(180,60,60,.08); border: 1px solid rgba(180,60,60,.2); color: #a03030; }
+
+        /* Stats grid */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .sc {
+            background: var(--white); border-radius: var(--radius);
             padding: 1.1rem 1.25rem;
-            box-shadow: 0 1px 4px rgba(56,44,35,.07);
+            box-shadow: var(--shadow);
             display: flex; align-items: center; gap: .85rem;
+            border-top: 3px solid transparent;
+            transition: transform .2s;
         }
-        .sum-icon {
-            width: 40px; height: 40px; border-radius: 10px;
+        .sc:hover { transform: translateY(-2px); }
+        .sc.c1 { border-top-color: var(--camel); }
+        .sc.c2 { border-top-color: var(--olive); }
+        .sc.c3 { border-top-color: var(--laurel); }
+        .sc.c4 { border-top-color: #e07a5f; }
+        .sc-icon {
+            width: 42px; height: 42px; border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.1rem; flex-shrink: 0;
         }
-        .si-olive   { background: rgba(95,111,82,.12); }
-        .si-camel   { background: rgba(185,148,112,.12); }
-        .si-laurel  { background: rgba(169,179,136,.15); }
-        .si-red     { background: rgba(180,60,60,.08); }
-        .sum-label { font-size: .7rem; color: var(--camel); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-        .sum-value { font-family: var(--font-d); font-size: 1.5rem; color: var(--charcoal); line-height: 1.1; }
+        .ic1 { background: rgba(185,148,112,.12); }
+        .ic2 { background: rgba(95,111,82,.12); }
+        .ic3 { background: rgba(169,179,136,.15); }
+        .ic4 { background: rgba(224,122,95,.1); }
+        .sc-label { font-size: .68rem; color: var(--camel); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+        .sc-val { font-family: var(--font-d); font-size: 1.65rem; color: var(--charcoal); line-height: 1; margin-top: .15rem; }
 
-        /* Table panel */
-        .panel {
-            background: white;
-            border-radius: 14px;
-            box-shadow: 0 1px 4px rgba(56,44,35,.07);
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-        }
-        .panel-header {
+        /* Panel */
+        .panel { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+        .panel-head {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 1.1rem 1.5rem;
-            border-bottom: 1px solid rgba(56,44,35,.07);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(56,44,35,.06);
         }
-        .panel-title { font-family: var(--font-d); font-size: 1.05rem; color: var(--charcoal); }
-        .tab-row { display: flex; gap: .25rem; }
-        .tab {
-            padding: .3rem .75rem;
-            border-radius: 999px;
-            font-size: .75rem; font-weight: 600;
-            border: 1.5px solid transparent;
-            background: transparent;
-            color: var(--camel);
-            cursor: pointer; transition: all .15s;
-        }
-        .tab.active { background: var(--olive); color: white; border-color: var(--olive); }
-        .tab:not(.active):hover { border-color: var(--laurel); color: var(--olive); }
+        .panel-title { font-family: var(--font-d); font-size: 1rem; color: var(--charcoal); }
+        .panel-link { font-size: .76rem; color: var(--olive); text-decoration: none; font-weight: 600; }
+        .panel-link:hover { text-decoration: underline; }
 
-        /* Data table */
+        /* Table */
         table { width: 100%; border-collapse: collapse; }
-        thead tr { background: rgba(56,44,35,.03); }
-        th {
-            text-align: left;
-            padding: .65rem 1.25rem;
-            font-size: .7rem;
-            font-weight: 700;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            color: rgba(56,44,35,.4);
-            white-space: nowrap;
-        }
-        td {
-            padding: .85rem 1.25rem;
-            font-size: .83rem;
-            color: var(--charcoal);
-            border-top: 1px solid rgba(56,44,35,.05);
-        }
-        tr:hover td { background: rgba(56,44,35,.015); }
+        thead tr { background: rgba(56,44,35,.025); }
+        th { text-align: left; padding: .6rem 1.25rem; font-size: .67rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: rgba(56,44,35,.38); white-space: nowrap; }
+        td { padding: .8rem 1.25rem; font-size: .82rem; color: var(--charcoal); border-top: 1px solid rgba(56,44,35,.05); vertical-align: middle; }
+        tr:hover td { background: rgba(56,44,35,.012); }
 
         /* Badge */
-        .badge {
-            display: inline-block;
-            padding: .2rem .65rem;
-            border-radius: 999px;
-            font-size: .68rem; font-weight: 700;
-        }
+        .badge { display: inline-block; padding: .18rem .6rem; border-radius: 999px; font-size: .67rem; font-weight: 700; }
         .b-pending  { background: rgba(185,148,112,.12); color: #7a4e20; }
         .b-approved { background: rgba(95,111,82,.12);   color: var(--olive); }
         .b-rejected { background: rgba(180,60,60,.08);   color: #a03030; }
+        .b-user     { background: rgba(169,179,136,.15); color: #3a5c2a; }
 
         /* Action buttons */
-        .btn-approve {
-            padding: .3rem .75rem;
-            background: var(--olive); color: white;
-            border: none; border-radius: 6px;
-            font-family: var(--font-b); font-size: .75rem; font-weight: 600;
-            cursor: pointer; transition: background .15s;
-            margin-right: .3rem;
+        .btn-sm {
+            padding: .28rem .7rem; border-radius: 6px;
+            font-family: var(--font-b); font-size: .73rem; font-weight: 600;
+            cursor: pointer; transition: all .15s; border: 1.5px solid transparent;
+            text-decoration: none; display: inline-block;
         }
-        .btn-approve:hover { background: var(--charcoal); }
-        .btn-reject {
-            padding: .3rem .75rem;
-            background: transparent; color: #a03030;
-            border: 1.5px solid rgba(180,60,60,.25);
-            border-radius: 6px;
-            font-family: var(--font-b); font-size: .75rem; font-weight: 600;
-            cursor: pointer; transition: all .15s;
-        }
-        .btn-reject:hover { background: rgba(180,60,60,.06); }
+        .btn-approve { background: var(--olive); color: white; border-color: var(--olive); }
+        .btn-approve:hover { background: var(--charcoal); border-color: var(--charcoal); }
+        .btn-view { background: transparent; color: var(--olive); border-color: rgba(95,111,82,.35); }
+        .btn-view:hover { background: rgba(95,111,82,.07); }
 
-        /* Empty state */
-        .empty-table {
-            text-align: center;
-            padding: 3rem;
-            color: var(--camel);
-        }
-        .empty-table .ei { font-size: 2rem; margin-bottom: .75rem; opacity: .4; }
-        .empty-table p { font-size: .83rem; }
+        /* Empty */
+        .empty { text-align: center; padding: 3rem 1rem; color: var(--camel); }
+        .empty .ei { font-size: 2rem; margin-bottom: .6rem; opacity: .4; }
+        .empty p { font-size: .82rem; }
 
         /* Two col */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+        @media (max-width: 900px) {
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .two-col { grid-template-columns: 1fr; }
+            .sidenav { display: none; }
+        }
     </style>
 </head>
 <body>
 
+{{-- TOPBAR --}}
 <header>
-    <div class="header-brand">🌿 EcoEats</div>
-    <div class="header-sep"></div>
-    <div class="header-label">Admin Panel</div>
-    <div class="header-right">
-        <span class="header-admin">{{ auth()->user()->name }}</span>
-        <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+    <div class="h-brand">🌿 EcoEats</div>
+    <div class="h-sep"></div>
+    <div class="h-label">Admin Panel</div>
+    <div class="h-right">
+        <span class="h-user">Halo, <strong>{{ auth()->user()->name }}</strong></span>
+        <form method="POST" action="{{ route('logout') }}" style="margin:0">
             @csrf
-            <button type="submit" class="btn-logout">Keluar</button>
+            <button type="submit" class="btn-out">Keluar</button>
         </form>
     </div>
 </header>
 
 <div class="layout">
 
-    <!-- SIDENAV -->
+    {{-- SIDENAV --}}
     <aside class="sidenav">
-        <div class="sidenav-label">Overview</div>
-        <a href="#" class="sidenav-item active">📊 Dashboard</a>
+        <div class="sn-label">Overview</div>
+        <a href="{{ route('admin.dashboard') }}" class="sn-item active">
+            <span class="sn-icon">📊</span> Dashboard
+        </a>
 
-        <div class="sidenav-label">Manajemen</div>
-        <a href="#" class="sidenav-item">🏪 Verifikasi Merchant</a>
-        <a href="#" class="sidenav-item">👥 Pengguna</a>
-        <a href="#" class="sidenav-item">🍱 Food Listing</a>
-        <a href="#" class="sidenav-item">📋 Semua Pesanan</a>
-
-        <div class="sidenav-label">Sistem</div>
-        <a href="#" class="sidenav-item">🏷 Kategori</a>
-        <a href="#" class="sidenav-item">⚙️ Pengaturan</a>
+        <div class="sn-label">Manajemen</div>
+        <a href="{{ route('admin.merchants.index') }}" class="sn-item">
+            <span class="sn-icon">🏪</span> Verifikasi Merchant
+        </a>
+        <a href="{{ route('admin.users.index') }}" class="sn-item">
+            <span class="sn-icon">👥</span> Pengguna
+        </a>
+        <a href="{{ route('admin.food-listings.index') }}" class="sn-item">
+            <span class="sn-icon">🍱</span> Food Listing
+        </a>
     </aside>
 
-    <!-- CONTENT -->
+    {{-- CONTENT --}}
     <main class="content">
 
-        <div class="page-header">
+        {{-- Flash --}}
+        @if(session('success'))
+            <div class="flash flash-success">✅ {{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+            <div class="flash flash-error">⚠️ {{ session('error') }}</div>
+        @endif
+
+        <div class="pg-head">
             <h1>Dashboard Admin</h1>
-            <div class="breadcrumb">EcoEats / Admin / Dashboard</div>
+            <div class="pg-crumb">EcoEats › Admin › Dashboard</div>
         </div>
 
-        <div class="summary-row">
-            <div class="sum-card">
-                <div class="sum-icon si-camel">⏳</div>
+        {{-- Stats --}}
+        <div class="stats">
+            <div class="sc c1">
+                <div class="sc-icon ic1">⏳</div>
                 <div>
-                    <div class="sum-label">Pending Verifikasi</div>
-                    <div class="sum-value">—</div>
+                    <div class="sc-label">Pending Verifikasi</div>
+                    <div class="sc-val">{{ $stats['pending_verifications'] }}</div>
                 </div>
             </div>
-            <div class="sum-card">
-                <div class="sum-icon si-olive">✅</div>
+            <div class="sc c2">
+                <div class="sc-icon ic2">✅</div>
                 <div>
-                    <div class="sum-label">Merchant Aktif</div>
-                    <div class="sum-value">—</div>
+                    <div class="sc-label">Merchant Aktif</div>
+                    <div class="sc-val">{{ $stats['active_merchants'] }}</div>
                 </div>
             </div>
-            <div class="sum-card">
-                <div class="sum-icon si-laurel">👥</div>
+            <div class="sc c3">
+                <div class="sc-icon ic3">👥</div>
                 <div>
-                    <div class="sum-label">Total User</div>
-                    <div class="sum-value">—</div>
+                    <div class="sc-label">Total User</div>
+                    <div class="sc-val">{{ $stats['total_users'] }}</div>
                 </div>
             </div>
-            <div class="sum-card">
-                <div class="sum-icon si-red">🍱</div>
+            <div class="sc c4">
+                <div class="sc-icon ic4">🍱</div>
                 <div>
-                    <div class="sum-label">Listing Aktif</div>
-                    <div class="sum-value">—</div>
+                    <div class="sc-label">Listing Aktif</div>
+                    <div class="sc-val">{{ $stats['active_listings'] }}</div>
                 </div>
             </div>
         </div>
 
-        <!-- Verifikasi Merchant -->
+        {{-- Merchant pending --}}
         <div class="panel">
-            <div class="panel-header">
-                <div class="panel-title">Pengajuan Verifikasi Merchant</div>
-                <div class="tab-row">
-                    <button class="tab active">Semua</button>
-                    <button class="tab">Pending</button>
-                    <button class="tab">Disetujui</button>
-                    <button class="tab">Ditolak</button>
-                </div>
+            <div class="panel-head">
+                <div class="panel-title">Pengajuan Verifikasi Terbaru</div>
+                <a href="{{ route('admin.merchants.index', ['status' => 'pending']) }}" class="panel-link">
+                    Lihat semua →
+                </a>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Nama Usaha</th>
                         <th>Pemilik</th>
                         <th>Tanggal Daftar</th>
@@ -312,67 +279,99 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($pendingMerchants as $m)
                     <tr>
-                        <td colspan="6">
-                            <div class="empty-table">
+                        <td><strong>{{ $m->business_name }}</strong></td>
+                        <td>{{ $m->user->name }}</td>
+                        <td>{{ $m->created_at->format('d M Y') }}</td>
+                        <td><span class="badge b-pending">Pending</span></td>
+                        <td>
+                            <a href="{{ route('admin.merchants.show', $m) }}" class="btn-sm btn-view">Tinjau</a>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5">
+                            <div class="empty">
                                 <div class="ei">📄</div>
-                                <p>Belum ada pengajuan verifikasi merchant.</p>
+                                <p>Tidak ada pengajuan pending.</p>
                             </div>
                         </td>
                     </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
 
+        {{-- Two-col: pengguna terbaru + ringkasan listing --}}
         <div class="two-col">
             <div class="panel">
-                <div class="panel-header">
+                <div class="panel-head">
                     <div class="panel-title">Pengguna Terbaru</div>
+                    <a href="{{ route('admin.users.index') }}" class="panel-link">Lihat semua →</a>
                 </div>
                 <table>
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>Role</th>
+                            <th>Email</th>
                             <th>Bergabung</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse($recentUsers as $u)
+                        <tr>
+                            <td>{{ $u->name }}</td>
+                            <td style="color:var(--camel)">{{ $u->email }}</td>
+                            <td>{{ $u->created_at->diffForHumans() }}</td>
+                        </tr>
+                        @empty
                         <tr>
                             <td colspan="3">
-                                <div class="empty-table">
+                                <div class="empty">
                                     <div class="ei">👥</div>
-                                    <p>Belum ada data pengguna.</p>
+                                    <p>Belum ada pengguna.</p>
                                 </div>
                             </td>
                         </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
 
             <div class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">Pesanan Terkini</div>
+                <div class="panel-head">
+                    <div class="panel-title">Aksi Cepat</div>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Kode</th>
-                            <th>Merchant</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="3">
-                                <div class="empty-table">
-                                    <div class="ei">📋</div>
-                                    <p>Belum ada pesanan.</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div style="padding: 1.25rem; display:flex; flex-direction:column; gap:.75rem;">
+                    <a href="{{ route('admin.merchants.index', ['status'=>'pending']) }}"
+                       style="display:flex; align-items:center; gap:.75rem; padding:.75rem 1rem; border-radius:10px; background:rgba(185,148,112,.08); border:1.5px solid rgba(185,148,112,.2); text-decoration:none; color:var(--charcoal); font-size:.83rem; font-weight:600; transition:background .2s;"
+                       onmouseover="this.style.background='rgba(185,148,112,.15)'" onmouseout="this.style.background='rgba(185,148,112,.08)'">
+                        <span style="font-size:1.2rem">⏳</span>
+                        <div>
+                            <div>Review Merchant Pending</div>
+                            <div style="font-size:.72rem; color:var(--camel); font-weight:400">{{ $stats['pending_verifications'] }} pengajuan menunggu</div>
+                        </div>
+                    </a>
+                    <a href="{{ route('admin.food-listings.index') }}"
+                       style="display:flex; align-items:center; gap:.75rem; padding:.75rem 1rem; border-radius:10px; background:rgba(95,111,82,.07); border:1.5px solid rgba(95,111,82,.15); text-decoration:none; color:var(--charcoal); font-size:.83rem; font-weight:600; transition:background .2s;"
+                       onmouseover="this.style.background='rgba(95,111,82,.12)'" onmouseout="this.style.background='rgba(95,111,82,.07)'">
+                        <span style="font-size:1.2rem">🍱</span>
+                        <div>
+                            <div>Kelola Food Listing</div>
+                            <div style="font-size:.72rem; color:var(--camel); font-weight:400">{{ $stats['active_listings'] }} listing aktif saat ini</div>
+                        </div>
+                    </a>
+                    <a href="{{ route('admin.users.index') }}"
+                       style="display:flex; align-items:center; gap:.75rem; padding:.75rem 1rem; border-radius:10px; background:rgba(169,179,136,.1); border:1.5px solid rgba(169,179,136,.2); text-decoration:none; color:var(--charcoal); font-size:.83rem; font-weight:600; transition:background .2s;"
+                       onmouseover="this.style.background='rgba(169,179,136,.18)'" onmouseout="this.style.background='rgba(169,179,136,.1)'">
+                        <span style="font-size:1.2rem">👥</span>
+                        <div>
+                            <div>Manajemen Pengguna</div>
+                            <div style="font-size:.72rem; color:var(--camel); font-weight:400">{{ $stats['total_users'] }} user terdaftar</div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
 

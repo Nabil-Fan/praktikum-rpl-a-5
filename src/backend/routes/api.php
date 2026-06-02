@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\FoodListingController;
-use App\Http\Controllers\Api\MerchantController;
+// use App\Http\Controllers\Api\AuthController;
+// use App\Http\Controllers\Api\FoodListingController;
+// use App\Http\Controllers\Api\MerchantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +27,12 @@ Route::prefix('v1')->group(function () {
         Route::get('/auth/me',      [AuthController::class, 'me']);
 
         // Food Listings — katalog makanan (dikerjakan Alena)
-        Route::get('/food-listings',      [FoodListingController::class, 'index']);
-        Route::get('/food-listings/{id}', [FoodListingController::class, 'show']);
+        // Route::get('/food-listings',      [FoodListingController::class, 'index']);
+        // Route::get('/food-listings/{id}', [FoodListingController::class, 'show']);
 
         // Merchants — data merchant & lokasi (dikerjakan Nabil)
-        Route::get('/merchants',      [MerchantController::class, 'index']);
-        Route::get('/merchants/{id}', [MerchantController::class, 'show']);
+        // Route::get('/merchants',      [MerchantController::class, 'index']);
+        // Route::get('/merchants/{id}', [MerchantController::class, 'show']);
 
         // Orders — pemesanan (nanti)
         // Route::get('/orders',        [OrderController::class, 'index']);
