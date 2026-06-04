@@ -11,7 +11,7 @@
 @section('content')
     <div class="card-header">
         <span class="portal-badge">
-            👤 Portal User
+            Portal User
         </span>
         <h1 class="card-title">Selamat datang kembali</h1>
         <p class="card-subtitle">Masuk untuk menemukan makanan surplus di sekitarmu.</p>

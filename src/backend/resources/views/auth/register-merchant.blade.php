@@ -212,7 +212,7 @@
         {{-- Bagian 1: Info Akun --}}
         <div class="card">
             <div class="card-head">
-                <div class="section-badge">👤 Langkah 1</div>
+                <div class="section-badge">Langkah 1</div>
                 <div class="card-title">Informasi Akun</div>
                 <div class="card-sub">Data untuk login ke portal EcoEats Merchant.</div>
             </div>
@@ -261,7 +261,7 @@
         {{-- Bagian 2: Profil Usaha --}}
         <div class="card">
             <div class="card-head">
-                <div class="section-badge">🏪 Langkah 2</div>
+                <div class="section-badge">Langkah 2</div>
                 <div class="card-title">Profil Usaha</div>
                 <div class="card-sub">Informasi tentang usaha kuliner Anda di Solo.</div>
             </div>
@@ -281,7 +281,7 @@
                     @error('business_address')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="map-hint">
-                    <span>📍</span>
+                    <span></span>
                     <span>Untuk mendapatkan koordinat: buka Google Maps → cari lokasi usaha → klik kanan → salin angka latitude & longitude yang muncul.</span>
                 </div>
                 <div class="form-row">
@@ -306,7 +306,7 @@
         {{-- Bagian 3: Dokumen --}}
         <div class="card">
             <div class="card-head">
-                <div class="section-badge">📄 Langkah 3</div>
+                <div class="section-badge">Langkah 3</div>
                 <div class="card-title">Dokumen Legalitas</div>
                 <div class="card-sub">Dokumen akan ditinjau admin sebelum akun dapat berjualan. Format: JPG, PNG, atau PDF (maks. 4MB).</div>
             </div>
@@ -316,7 +316,7 @@
                         Surat Izin Usaha <span class="opt">(opsional, bisa diupload nanti)</span>
                     </label>
                     <label class="doc-upload" for="business_license">
-                        <div class="doc-upload-icon">📋</div>
+                        <div class="doc-upload-icon"></div>
                         <div class="doc-upload-label"><strong>Klik untuk unggah</strong><br>SIUP, NIB, atau izin usaha lainnya</div>
                         <div class="doc-preview-name" id="license-name"></div>
                         <input type="file" id="business_license" name="business_license"
@@ -330,7 +330,7 @@
                         Sertifikat Halal <span class="opt">(opsional)</span>
                     </label>
                     <label class="doc-upload" for="halal_cert">
-                        <div class="doc-upload-icon">✅</div>
+                        <div class="doc-upload-icon"></div>
                         <div class="doc-upload-label"><strong>Klik untuk unggah</strong><br>Sertifikat halal MUI (jika ada)</div>
                         <div class="doc-preview-name" id="halal-name"></div>
                         <input type="file" id="halal_cert" name="halal_cert"

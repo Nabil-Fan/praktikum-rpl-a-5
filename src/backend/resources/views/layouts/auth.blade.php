@@ -37,16 +37,17 @@
             --font-body:    'Plus Jakarta Sans', sans-serif;
         }
 
+        /* Bug Fixed */
         body {
             font-family: var(--font-body);
             background-color: var(--bg);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;   
             align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
+            justify-content: flex-start; 
+            padding: 2rem 1.5rem;     /
             position: relative;
-            overflow: hidden;
         }
 
         /* Background decorative blobs */
