@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\MerchantVerificationController;
 use App\Http\Controllers\Admin\UserController          as AdminUserController;
 use App\Http\Controllers\Admin\FoodListingController   as AdminFoodListingController;
 use App\Http\Controllers\Admin\AccountController       as AdminAccountController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Merchant\DashboardController  as MerchantDashboard;
 use App\Http\Controllers\Merchant\FoodListingController as MerchantFoodListingController;
 use App\Http\Controllers\Merchant\ProfileController    as MerchantProfileController;
@@ -105,4 +106,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Manajemen Food Listing (read-only + force-delete)
     Route::get('/food-listings',                    [AdminFoodListingController::class, 'index'])->name('food-listings.index');
     Route::delete('/food-listings/{foodListing}',   [AdminFoodListingController::class, 'destroy'])->name('food-listings.destroy');
+
+        // Kategori
+    Route::get('/categories',                  [AdminCategoryController::class, 'index'])->name('categories.index');
+    Route::post('/categories',                 [AdminCategoryController::class, 'store'])->name('categories.store');
+    Route::put('/categories/{category}',       [AdminCategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{category}',    [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
 });

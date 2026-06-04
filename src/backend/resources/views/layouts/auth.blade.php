@@ -342,8 +342,24 @@
                         Admin
                     </a>
                 </div>
+            </div>        {{-- Link daftar akun baru --}}
+        <div style="text-align:center; margin-top:1rem;">
+            <div style="font-size:.75rem; color:var(--text-muted);">
+                Belum punya akun?
+            </div>
+            <div style="display:flex; justify-content:center; gap:1rem; margin-top:.5rem;">
+                <a href="{{ route('register') }}"
+                   style="font-size:.75rem; color:var(--accent); font-weight:600; text-decoration:none;">
+                    Daftar sebagai User
+                </a>
+                <span style="color:var(--bg-border)">|</span>
+                <a href="{{ route('merchant.register') }}"
+                   style="font-size:.75rem; color:var(--camel); font-weight:600; text-decoration:none;">
+                    Daftar sebagai Merchant
+                </a>
             </div>
         </div>
+ 
     </div>
 </body>
 </html>

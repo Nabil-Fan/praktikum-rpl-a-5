@@ -94,6 +94,8 @@
         <div class="nav-label">Utama</div>
         <a href="{{ route('merchant.dashboard') }}" class="nav-item">📊 Dashboard</a>
         <a href="{{ route('merchant.listings.index') }}" class="nav-item active">🍱 Menu Surplus</a>
+        <div class="nav-label">Akun</div>
+        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">🏪 Profil Usaha</a>
         <div class="nav-label">Segera Hadir</div>
         <span class="nav-item" style="opacity:.35; cursor:default;">📋 Pesanan Masuk</span>
     </nav>

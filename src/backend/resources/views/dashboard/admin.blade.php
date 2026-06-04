@@ -1,3 +1,8 @@
+{{--
+    resources/views/dashboard/admin.blade.php
+    Data dari: App\Http\Controllers\Admin\DashboardController@index
+    Variabel: $stats (array), $pendingMerchants (Collection), $recentUsers (Collection)
+--}}
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -207,8 +212,15 @@
         <a href="{{ route('admin.users.index') }}" class="sn-item">
             <span class="sn-icon">👥</span> Pengguna
         </a>
+        <a href="{{ route('admin.accounts.create') }}" class="sn-item">
+            <span class="sn-icon">➕</span> Tambah Akun
+        </a>
         <a href="{{ route('admin.food-listings.index') }}" class="sn-item">
             <span class="sn-icon">🍱</span> Food Listing
+        </a>
+        <div class="sn-label">Sistem</div>
+        <a href="{{ route('admin.categories.index') }}" class="sn-item">
+            <span class="sn-icon">🏷</span> Kategori
         </a>
     </aside>
 

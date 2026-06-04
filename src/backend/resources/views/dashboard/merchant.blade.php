@@ -1,4 +1,8 @@
-
+{{--
+    resources/views/dashboard/merchant.blade.php
+    Data dari: App\Http\Controllers\Merchant\DashboardController@index
+    Variabel: $profile (MerchantProfile|null), $stats (array), $recentListings (Collection)
+--}}
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -207,6 +211,11 @@
         </a>
         <a href="{{ route('merchant.listings.index') }}" class="nav-item">
             <span class="nav-icon">🍱</span> Menu Surplus
+        </a>
+
+        <div class="nav-label">Akun</div>
+        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">
+            <span class="nav-icon">🏪</span> Profil Usaha
         </a>
 
         <div class="nav-label">Segera Hadir</div>

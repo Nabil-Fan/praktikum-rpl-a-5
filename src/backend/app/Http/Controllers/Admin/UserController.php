@@ -18,6 +18,12 @@ class UserController extends Controller
 
         $query = User::where('role', 'user');
 
+        if ($filter === 'deleted') {
+            $query->whereNotNull('deleted_at');
+        } elseif ($filter === 'active') {
+            $query->whereNull('deleted_at');
+        }
+
         // Filter status
         match ($filter) {
             'deleted' => $query->whereNotNull('deleted_at'),

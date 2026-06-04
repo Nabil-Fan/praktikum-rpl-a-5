@@ -67,10 +67,4 @@
         </button>
     </form>
 
-    <div style="margin-top:1.25rem; padding:0.85rem 1rem; background:rgba(185,148,112,0.08); border-radius:10px; border:1px solid rgba(185,148,112,0.2);">
-        <p style="font-size:0.78rem; color:#7a5c3a; line-height:1.5;">
-            <strong>Belum terdaftar sebagai mitra?</strong><br>
-            Hubungi tim EcoEats untuk mendaftarkan usaha Anda sebagai mitra merchant.
-        </p>
-    </div>
 @endsection
