@@ -144,10 +144,11 @@
         <div class="sn-label">Manajemen</div>
         <a href="{{ route('admin.merchants.index') }}" class="sn-item">🏪 Verifikasi Merchant</a>
         <a href="{{ route('admin.users.index') }}" class="sn-item">👥 Pengguna</a>
-        <a href="{{ route('admin.accounts.create') }}" class="sn-item">➕ Tambah Akun</a>
         <a href="{{ route('admin.food-listings.index') }}" class="sn-item">🍱 Food Listing</a>
+        <a href="{{ route('admin.orders.index') }}" class="sn-item">📋 Semua Pesanan</a>
         <div class="sn-label">Sistem</div>
         <a href="{{ route('admin.categories.index') }}" class="sn-item active">🏷 Kategori</a>
+        <a href="{{ route('admin.accounts.create') }}" class="sn-item">➕ Tambah Akun</a>
     </aside>
 
     {{-- CONTENT --}}

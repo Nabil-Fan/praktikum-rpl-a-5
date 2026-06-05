@@ -25,7 +25,7 @@
         .sb-brand { padding:1.4rem 1.4rem 1rem; border-bottom:1px solid rgba(254,250,224,.07); }
         .sb-brand-name { font-family:var(--font-d); font-size:1.2rem; color:var(--cornsilk); }
         .sb-role { font-size:.65rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--camel); margin-top:.2rem; }
-        .sb-user { padding:1rem 1.4rem; border-bottom:1px solid rgba(254,250,224,.07); }
+        .sb-user { padding: .7rem 1.4rem; border-bottom: 1px solid rgba(254,250,224,.08); }
         .sb-name { font-size:.83rem; font-weight:600; color:var(--cornsilk); }
         .sb-sub  { font-size:.71rem; color:var(--camel); margin-top:.2rem; }
         nav.sb-nav { flex:1; padding:.75rem 0; }
@@ -93,21 +93,29 @@
 
 <aside class="sidebar">
     <div class="sb-brand">
-        <div class="sb-brand-name">🌿 EcoEats</div>
+        <div class="sb-brand-name"> EcoEats</div>
         <div class="sb-role">Portal Merchant</div>
     </div>
     <div class="sb-user">
         <div class="sb-name">{{ auth()->user()->name }}</div>
-        <div class="sb-sub">{{ $profile?->business_name ?? '' }}</div>
+        <div class="sb-sub">{{ $profile?->business_name ?? 'Profil belum diisi' }}</div>
     </div>
     <nav class="sb-nav">
-        <div class="nav-label">Utama</div>
-        <a href="{{ route('merchant.dashboard') }}" class="nav-item">📊 Dashboard</a>
-        <a href="{{ route('merchant.listings.index') }}" class="nav-item active">🍱 Menu Surplus</a>
-        <div class="nav-label">Akun</div>
-        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">🏪 Profil Usaha</a>
-        <div class="nav-label">Segera Hadir</div>
-        <span class="nav-item" style="opacity:.35; cursor:default;">📋 Pesanan Masuk</span>
+    <nav class="sb-nav">
+        <div class="nav-lbl">Utama</div>
+        <a href="{{ route('merchant.dashboard') }}" class="nav-item">
+            <span>📊</span> Dashboard
+        </a>
+        <a href="{{ route('merchant.listings.index') }}" class="nav-item active">
+            <span>🍱</span> Menu Surplus
+        </a>
+        <a href="{{ route('merchant.orders.index') }}" class="nav-item">
+            <span>📋</span> Pesanan Masuk
+        </a>
+        <div class="nav-lbl">Akun</div>
+        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">
+            <span>🏪</span> Profil Usaha
+        </a>
     </nav>
     <div class="sb-footer">
         <form method="POST" action="{{ route('logout') }}" style="margin:0">

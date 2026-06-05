@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Merchant;
 use App\Http\Controllers\Controller;
 use App\Models\FoodListing;
 use App\Models\MerchantProfile;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -12,9 +13,7 @@ class DashboardController extends Controller
     public function index()
     {
         /** @var \App\Models\User $user */
-        $user = Auth::user();
-
-        // Ambil profil merchant milik user ini
+        $user    = Auth::user();
         $profile = MerchantProfile::where('user_id', $user->id)->first();
 
         $stats = [
@@ -29,12 +28,16 @@ class DashboardController extends Controller
                 ->where('status', 'available')
                 ->count();
 
-            // Pesanan akan ditambahkan nanti setelah Order model dibuat
-            // $stats['pending_orders']  = Order::where('merchant_id', $profile->id)->where('status', 'pending')->count();
-            // $stats['completed_today'] = Order::where('merchant_id', $profile->id)->where('status', 'completed')->whereDate('completed_at', today())->count();
+            $stats['pending_orders'] = Order::forMerchant($profile->id)
+                ->where('status', Order::STATUS_PENDING)
+                ->count();
+
+            $stats['completed_today'] = Order::forMerchant($profile->id)
+                ->where('status', Order::STATUS_COMPLETED)
+                ->whereDate('completed_at', today())
+                ->count();
         }
 
-        // Listing terbaru milik merchant ini
         $recentListings = $profile
             ? FoodListing::where('merchant_id', $profile->id)
                 ->whereNull('deleted_at')

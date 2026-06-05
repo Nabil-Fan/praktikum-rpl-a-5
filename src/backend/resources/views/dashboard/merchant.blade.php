@@ -205,24 +205,21 @@
     </div>
 
     <nav class="sb-nav">
-        <div class="nav-label">Utama</div>
+        <div class="nav-lbl">Utama</div>
         <a href="{{ route('merchant.dashboard') }}" class="nav-item active">
-            <span class="nav-icon">📊</span> Dashboard
+            <span>📊</span> Dashboard
         </a>
         <a href="{{ route('merchant.listings.index') }}" class="nav-item">
-            <span class="nav-icon">🍱</span> Menu Surplus
+            <span>🍱</span> Menu Surplus
         </a>
-
-        <div class="nav-label">Akun</div>
+        <a href="{{ route('merchant.orders.index') }}" class="nav-item">
+            <span>📋</span> Pesanan Masuk
+        </a>
+        <div class="nav-lbl">Akun</div>
         <a href="{{ route('merchant.profile.edit') }}" class="nav-item">
-            <span class="nav-icon">🏪</span> Profil Usaha
+            <span>🏪</span> Profil Usaha
         </a>
-
-        <div class="nav-label">Segera Hadir</div>
-        <span class="nav-item" style="opacity:.35; cursor:default;">
-            <span class="nav-icon">📋</span> Pesanan Masuk
-        </span>
-    </nav>
+        </nav>
 
     <div class="sb-footer">
         <form method="POST" action="{{ route('logout') }}" style="margin:0">
@@ -285,15 +282,16 @@
         </div>
         <div class="sc c2">
             <div class="sc-label">Pesanan Masuk</div>
-            <div class="sc-val">—</div>
-            <div class="sc-note">segera hadir</div>
+            <div class="sc-val">{{ $stats['pending_orders'] }}</div>
+            <div class="sc-note">menunggu konfirmasi</div>
         </div>
         <div class="sc c3">
             <div class="sc-label">Selesai Hari Ini</div>
-            <div class="sc-val">—</div>
-            <div class="sc-note">segera hadir</div>
+            <div class="sc-val">{{ $stats['completed_today'] }}</div>
+            <div class="sc-note">pickup berhasil</div>
         </div>
     </div>
+
 
     {{-- Recent listings --}}
     <div class="panel">

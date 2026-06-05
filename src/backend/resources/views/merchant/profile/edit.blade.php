@@ -105,22 +105,45 @@
 
 <aside class="sidebar">
     <div class="sb-brand">
-        <div class="sb-brand-name">🌿 EcoEats</div>
+        <div class="sb-brand-name">EcoEats</div>
         <div class="sb-role">Portal Merchant</div>
     </div>
     <div class="sb-user">
         <div class="sb-name">{{ auth()->user()->name }}</div>
         <div class="sb-sub">{{ $profile->business_name }}</div>
     </div>
+<aside class="sidebar">
+    <div class="sb-brand">
+        <div class="sb-brand-name"> EcoEats</div>
+        <div class="sb-role">Portal Merchant</div>
+    </div>
+    <div class="sb-user">
+        <div class="sb-name">{{ auth()->user()->name }}</div>
+        <div class="sb-sub">{{ $profile?->business_name ?? 'Profil belum diisi' }}</div>
+    </div>
     <nav class="sb-nav">
-        <div class="nav-label">Utama</div>
-        <a href="{{ route('merchant.dashboard') }}" class="nav-item">📊 Dashboard</a>
-        <a href="{{ route('merchant.listings.index') }}" class="nav-item">🍱 Menu Surplus</a>
-        <div class="nav-label">Akun</div>
-        <a href="{{ route('merchant.profile.edit') }}" class="nav-item active">🏪 Profil Usaha</a>
-        <div class="nav-label">Segera Hadir</div>
-        <span class="nav-item" style="opacity:.35; cursor:default;">📋 Pesanan Masuk</span>
+    <nav class="sb-nav">
+        <div class="nav-lbl">Utama</div>
+        <a href="{{ route('merchant.dashboard') }}" class="nav-item">
+            <span>📊</span> Dashboard
+        </a>
+        <a href="{{ route('merchant.listings.index') }}" class="nav-item">
+            <span>🍱</span> Menu Surplus
+        </a>
+        <a href="{{ route('merchant.orders.index') }}" class="nav-item active">
+            <span>📋</span> Pesanan Masuk
+        </a>
+        <div class="nav-lbl">Akun</div>
+        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">
+            <span>🏪</span> Profil Usaha
+        </a>
     </nav>
+    <div class="sb-footer">
+        <form method="POST" action="{{ route('logout') }}" style="margin:0">
+            @csrf <button type="submit" class="btn-logout">↩ Keluar</button>
+        </form>
+    </div>
+</aside>
     <div class="sb-footer">
         <form method="POST" action="{{ route('logout') }}" style="margin:0">
             @csrf <button type="submit" class="btn-logout">↩ Keluar</button>

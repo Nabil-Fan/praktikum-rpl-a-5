@@ -28,7 +28,7 @@
         <input class="form-input {{ $errors->has('name') ? 'is-invalid' : '' }}"
                type="text" id="name" name="name"
                value="{{ old('name') }}" autocomplete="name" autofocus
-               placeholder="contoh: Budi Santoso">
+               placeholder="contoh: Nabil Fannani">
         @error('name')
             <div class="field-error">{{ $message }}</div>
         @enderror
@@ -39,7 +39,7 @@
         <input class="form-input {{ $errors->has('email') ? 'is-invalid' : '' }}"
                type="email" id="email" name="email"
                value="{{ old('email') }}" autocomplete="email"
-               placeholder="budi@email.com">
+               placeholder="nabil@email.com">
         @error('email')
             <div class="field-error">{{ $message }}</div>
         @enderror
