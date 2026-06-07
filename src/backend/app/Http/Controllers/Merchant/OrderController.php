@@ -74,6 +74,8 @@ class OrderController extends Controller
         }
 
         $order->load(['items.listing', 'user', 'payments']);
+        
+        // $order->load(['items.listing', 'user', 'payments']);
 
         return view('merchant.orders.show', compact('order', 'profile'));
     }

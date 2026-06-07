@@ -30,30 +30,13 @@
         body { font-family: var(--font-b); background: var(--bg); color: var(--charcoal); display: flex; min-height: 100vh; }
 
         /* ── SIDEBAR ── */
-        .sidebar {
-            width: 230px; min-height: 100vh;
-            background: var(--charcoal);
-            display: flex; flex-direction: column;
-            position: fixed; top: 0; left: 0; z-index: 50;
-        }
-        .sb-brand {
-            padding: 1.4rem 1.4rem 1rem;
-            border-bottom: 1px solid rgba(254,250,224,.07);
-        }
-        .sb-brand-name { font-family: var(--font-d); font-size: 1.2rem; color: var(--cornsilk); display: flex; align-items: center; gap: .4rem; }
-        .sb-role { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--camel); margin-top: .2rem; }
+        .sidebar { width:230px; min-height:100vh; background:var(--charcoal); display:flex; flex-direction:column; position:fixed; top:0; left:0; z-index:50; }
+        .sb-brand { padding:1.4rem 1.4rem 1rem; border-bottom:1px solid rgba(254,250,224,.07); }
+        .sb-brand-name { font-family:var(--font-d); font-size:1.2rem; color:var(--cornsilk); }
+        .sb-role { font-size:.65rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--camel); margin-top:.2rem; }
+        .sb-user { padding:1rem 1.4rem; border-bottom:1px solid rgba(254,250,224,.07); }
+        .sb-name { font-size:.83rem; font-weight:600; color:var(--cornsilk); }
 
-        .sb-user {
-            padding: 1rem 1.4rem;
-            border-bottom: 1px solid rgba(254,250,224,.07);
-        }
-        .sb-avatar {
-            width: 36px; height: 36px; border-radius: 9px;
-            background: var(--camel); color: white;
-            display: flex; align-items: center; justify-content: center;
-            font-size: .9rem; margin-bottom: .45rem;
-        }
-        .sb-name { font-size: .83rem; font-weight: 600; color: var(--cornsilk); }
 
         @php $verStatus = $profile?->verification_status ?? 'pending'; @endphp
         .sb-status {
@@ -61,30 +44,15 @@
             font-size: .67rem; margin-top: .2rem;
             color: {{ $verStatus === 'approved' ? 'var(--laurel)' : ($verStatus === 'rejected' ? '#f07070' : 'var(--camel)') }};
         }
-        .sb-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-
-        nav.sb-nav { flex: 1; padding: .75rem 0; }
-        .nav-label { font-size: .61rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: rgba(254,250,224,.27); padding: .65rem 1.4rem .2rem; }
-        .nav-item {
-            display: flex; align-items: center; gap: .65rem;
-            padding: .55rem 1.4rem; font-size: .8rem;
-            color: rgba(254,250,224,.55); text-decoration: none;
-            border-left: 2.5px solid transparent;
-            transition: all .15s;
-        }
-        .nav-item:hover { color: var(--cornsilk); background: rgba(254,250,224,.04); }
-        .nav-item.active { color: var(--cornsilk); border-left-color: var(--camel); background: rgba(185,148,112,.12); font-weight: 600; }
-        .nav-icon { width: 18px; text-align: center; }
-
-        .sb-footer { padding: 1rem 1.4rem; border-top: 1px solid rgba(254,250,224,.07); }
-        .btn-logout {
-            width: 100%; padding: .55rem;
-            background: transparent; border: 1.5px solid rgba(254,250,224,.13);
-            color: rgba(254,250,224,.45); border-radius: 8px;
-            font-family: var(--font-b); font-size: .75rem; font-weight: 600;
-            cursor: pointer; transition: all .2s;
-        }
-        .btn-logout:hover { border-color: rgba(254,250,224,.4); color: var(--cornsilk); }
+         .sb-sub  { font-size:.71rem; color:var(--camel); margin-top:.2rem; }
+        nav.sb-nav { flex:1; padding:.75rem 0; }
+        .nav-label { font-size:.61rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:rgba(254,250,224,.27); padding:.65rem 1.4rem .2rem; }
+        .nav-item { display:flex; align-items:center; gap:.65rem; padding:.55rem 1.4rem; font-size:.8rem; color:rgba(254,250,224,.55); text-decoration:none; border-left:2.5px solid transparent; transition:all .15s; }
+        .nav-item:hover { color:var(--cornsilk); background:rgba(254,250,224,.04); }
+        .nav-item.active { color:var(--cornsilk); border-left-color:var(--camel); background:rgba(185,148,112,.12); font-weight:600; }
+        .sb-footer { padding:1rem 1.4rem; border-top:1px solid rgba(254,250,224,.07); }
+        .btn-logout { width:100%; padding:.55rem; background:transparent; border:1.5px solid rgba(254,250,224,.13); color:rgba(254,250,224,.45); border-radius:8px; font-family:var(--font-b); font-size:.75rem; font-weight:600; cursor:pointer; transition:all .2s; }
+        .btn-logout:hover { border-color:rgba(254,250,224,.4); color:var(--cornsilk); }
 
         /* ── MAIN ── */
         .main { margin-left: 230px; flex: 1; padding: 2rem 2.25rem 4rem; }
@@ -191,40 +159,22 @@
         <div class="sb-brand-name">🌿 EcoEats</div>
         <div class="sb-role">Portal Merchant</div>
     </div>
-
     <div class="sb-user">
-        <div class="sb-avatar">🏪</div>
         <div class="sb-name">{{ auth()->user()->name }}</div>
-        <div class="sb-status">
-            <span class="sb-dot"></span>
-            @if($verStatus === 'approved') Terverifikasi
-            @elseif($verStatus === 'rejected') Ditolak
-            @else Menunggu verifikasi
-            @endif
-        </div>
+        <div class="sb-sub">{{ $profile->business_name }}</div>
     </div>
-
     <nav class="sb-nav">
-        <div class="nav-lbl">Utama</div>
-        <a href="{{ route('merchant.dashboard') }}" class="nav-item active">
-            <span>📊</span> Dashboard
-        </a>
-        <a href="{{ route('merchant.listings.index') }}" class="nav-item">
-            <span>🍱</span> Menu Surplus
-        </a>
-        <a href="{{ route('merchant.orders.index') }}" class="nav-item">
-            <span>📋</span> Pesanan Masuk
-        </a>
-        <div class="nav-lbl">Akun</div>
-        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">
-            <span>🏪</span> Profil Usaha
-        </a>
-        </nav>
-
+        <div class="nav-label">Utama</div>
+        <a href="{{ route('merchant.dashboard') }}" class="nav-item active">📊 Dashboard</a>
+        <a href="{{ route('merchant.listings.index') }}" class="nav-item">🍱 Menu Surplus</a>
+        <a href="{{ route('merchant.orders.index') }}" class="nav-item">📋 Pesanan Masuk</a>
+        <div class="nav-label">Akun</div>
+        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">🏪 Profil Usaha</a>
+        <a href="{{ route('merchant.map') }}" class="nav-item">🗺 Lokasi Usaha</a>
+    </nav>
     <div class="sb-footer">
         <form method="POST" action="{{ route('logout') }}" style="margin:0">
-            @csrf
-            <button type="submit" class="btn-logout">↩ Keluar</button>
+            @csrf <button type="submit" class="btn-logout">↩ Keluar</button>
         </form>
     </div>
 </aside>
