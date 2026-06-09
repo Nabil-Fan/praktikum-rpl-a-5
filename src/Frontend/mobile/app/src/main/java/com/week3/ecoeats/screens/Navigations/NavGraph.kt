@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.week3.ecoeats.screens.Auth.AuthScreen
 import com.week3.ecoeats.screens.Auth.SignIn
 import com.week3.ecoeats.screens.Auth.SignUp
+import com.week3.ecoeats.screens.Category.CategoryDetailScreen
 import com.week3.ecoeats.screens.Dashboard.DashboardScreen
 
 @Composable
@@ -28,6 +29,13 @@ fun NavGraph() {
         }
         composable("dashboard"){
             DashboardScreen(navController)
+        }
+        composable("category/{categoryName}") { backStackEntry ->
+            val categoryName = backStackEntry.arguments?.getString("categoryName") ?: "SEMUA"
+            CategoryDetailScreen(
+                categoryName = categoryName,
+                navController = navController
+            )
         }
     }
 }

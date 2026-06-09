@@ -10,58 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4831c3d3-d11e-4113-bfec-297638256148" name="Changes" comment="Add : Fitur baru Sign In dan Navigationnya (kurang error handling)">
+      <change beforePath="$PROJECT_DIR$/.gradle/9.3.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.3.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/androidTest/java/com/week3/ecoeats/ExampleInstrumentedTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/MainActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/data/Category.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/data/FoodListing.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Auth/AuthScreen.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Auth/SignIn.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Auth/SignUp.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Component/BottomNavBar.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Component/MainImage.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Dashboard/DashboardScreen.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Dashboard/component/CategoryRow.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Dashboard/component/MenuSection.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Dashboard/component/SearchBar.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/screens/Navigations/NavGraph.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/ui/theme/Color.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/ui/theme/Theme.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/java/com/week3/ecoeats/ui/theme/Type.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/gambar1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_home.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_mie.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_nasi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_pesanan.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_profile.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_roti.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/drawable/ic_semua.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/values/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app/src/test/java/com/week3/ecoeats/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/week3/ecoeats/screens/Dashboard/DashboardScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/week3/ecoeats/screens/Dashboard/DashboardScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/week3/ecoeats/screens/Dashboard/component/CategoryRow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/week3/ecoeats/screens/Dashboard/component/CategoryRow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/week3/ecoeats/screens/Navigations/NavGraph.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/week3/ecoeats/screens/Navigations/NavGraph.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,12 +252,12 @@
       <map>
         <entry key="com.week3.ecoeats">
           <value>
-            <CheckInfo lastCheckTimestamp="1779408256487" />
+            <CheckInfo lastCheckTimestamp="1781007584370" />
           </value>
         </entry>
         <entry key="com.week3.ecoeats.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1779408256486" />
+            <CheckInfo lastCheckTimestamp="1781007584349" />
           </value>
         </entry>
       </map>
