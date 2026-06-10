@@ -2,46 +2,89 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'users';
+
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'password_hash',
+        'phone',
+        'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
-        'password',
+        'password_hash',
         'remember_token',
     ];
 
+    protected $casts = [
+        'role'       => UserRole::class,
+        'deleted_at' => 'datetime',
+    ];
+
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Override default auth password column.
+     * Laravel secara default mencari kolom 'password',
+     * sedangkan kita menggunakan 'password_hash'.
      */
-    protected function casts(): array
+    public function getAuthPassword(): string
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->password_hash;
+    }
+
+    // ──────────────────────────────────────────
+    // Helper: cek role tanpa magic string
+    // ──────────────────────────────────────────
+
+    public function isUser(): bool
+    {
+        return $this->role === UserRole::USER;
+    }
+
+    public function isMerchant(): bool
+    {
+        return $this->role === UserRole::MERCHANT;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::ADMIN;
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->deleted_at !== null;
+    }
+
+    // ──────────────────────────────────────────
+    // Relasi
+    // ──────────────────────────────────────────
+
+    /**
+     * User memiliki satu profil merchant (jika role = merchant).
+     */
+    public function merchantProfile(): HasOne
+    {
+        return $this->hasOne(MerchantProfile::class, 'user_id');
+    }
+
+    /**
+     * User memiliki banyak pesanan (jika role = user).
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'user_id');
     }
 }
