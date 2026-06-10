@@ -11,11 +11,13 @@ use App\Http\Controllers\Admin\AccountController            as AdminAccountContr
 use App\Http\Controllers\Admin\CategoryController           as AdminCategoryController;
 use App\Http\Controllers\Admin\OrderController              as AdminOrderController;
 use App\Http\Controllers\Admin\MapController    as AdminMapController;
+use App\Http\Controllers\Admin\WithdrawalController    as AdminWithdrawalController;
 use App\Http\Controllers\Merchant\DashboardController       as MerchantDashboard;
 use App\Http\Controllers\Merchant\FoodListingController     as MerchantFoodListingController;
 use App\Http\Controllers\Merchant\ProfileController         as MerchantProfileController;
 use App\Http\Controllers\Merchant\OrderController           as MerchantOrderController;
 use App\Http\Controllers\Merchant\MapController as MerchantMapController;
+use App\Http\Controllers\Merchant\WithdrawalController as MerchantWithdrawalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,7 @@ use App\Http\Controllers\Merchant\MapController as MerchantMapController;
 
 // ── ROOT ─────────────────────────────────────────────────────────────────
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('merchant.login');
 });
 
 // ── AUTH: User Biasa ──────────────────────────────────────────────────────
@@ -88,6 +90,10 @@ Route::middleware(['auth', 'role:merchant'])->prefix('merchant')->name('merchant
 
     // map
     Route::get('/map', [MerchantMapController::class, 'index'])->name('map');
+
+    // Withdrawal
+    Route::get('/withdrawals',  [MerchantWithdrawalController::class, 'index'])->name('withdrawals.index');
+    Route::post('/withdrawals', [MerchantWithdrawalController::class, 'store'])->name('withdrawals.store');
 });
 
 // ── ADMIN ─────────────────────────────────────────────────────────────────
@@ -130,4 +136,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // map
     Route::get('/map', [AdminMapController::class, 'index'])->name('map');
+    
+    // Withdrawal
+    Route::get('/withdrawals',                       [AdminWithdrawalController::class, 'index'])->name('withdrawals.index');
+    Route::get('/withdrawals/{withdrawal}',           [AdminWithdrawalController::class, 'show'])->name('withdrawals.show');
+    Route::post('/withdrawals/{withdrawal}/approve',  [AdminWithdrawalController::class, 'approve'])->name('withdrawals.approve');
+    Route::post('/withdrawals/{withdrawal}/complete', [AdminWithdrawalController::class, 'complete'])->name('withdrawals.complete');
+    Route::post('/withdrawals/{withdrawal}/reject',   [AdminWithdrawalController::class, 'reject'])->name('withdrawals.reject');
 });
