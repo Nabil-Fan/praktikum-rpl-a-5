@@ -168,6 +168,8 @@
         <a href="{{ route('merchant.dashboard') }}" class="nav-item active">📊 Dashboard</a>
         <a href="{{ route('merchant.listings.index') }}" class="nav-item">🍱 Menu Surplus</a>
         <a href="{{ route('merchant.orders.index') }}" class="nav-item">📋 Pesanan Masuk</a>
+        <div class="nav-label">Keuangan</div>
+        <a href="{{ route('merchant.withdrawals.index') }}" class="nav-item">💰 Penarikan Dana</a>
         <div class="nav-label">Akun</div>
         <a href="{{ route('merchant.profile.edit') }}" class="nav-item">🏪 Profil Usaha</a>
         <a href="{{ route('merchant.map') }}" class="nav-item">🗺 Lokasi Usaha</a>

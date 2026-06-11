@@ -201,12 +201,13 @@
     {{-- SIDENAV --}}
     <aside class="sidenav">
         <div class="sn-label">Overview</div>
-        <a href="{{ route('admin.dashboard') }}" class="sn-item">📊 Dashboard</a>
+        <a href="{{ route('admin.dashboard') }}" class="sn-item active">📊 Dashboard</a>
         <div class="sn-label">Manajemen</div>
         <a href="{{ route('admin.merchants.index') }}" class="sn-item">🏪 Verifikasi Merchant</a>
-        <a href="{{ route('admin.users.index') }}" class="sn-item active">👥 Pengguna</a>
+        <a href="{{ route('admin.users.index') }}" class="sn-item">👥 Pengguna</a>
         <a href="{{ route('admin.food-listings.index') }}" class="sn-item">🍱 Food Listing</a>
         <a href="{{ route('admin.orders.index') }}" class="sn-item">📋 Semua Pesanan</a>
+        <a href="{{ route('admin.withdrawals.index') }}" class="sn-item">💰 Penarikan Dana</a>
         <div class="sn-label">Sistem</div>
         <a href="{{ route('admin.categories.index') }}" class="sn-item">🏷 Kategori</a>
         <a href="{{ route('admin.accounts.create') }}" class="sn-item">➕ Tambah Akun</a>

@@ -330,10 +330,10 @@
             <div class="portal-switcher" style="border:none; padding:0; margin:0;">
                 <p>Login sebagai:</p>
                 <div class="portal-links">
-                    <a href="{{ route('login') }}"
+                    <!-- <a href="{{ route('login') }}"
                        class="portal-link @yield('active-user')">
                         User
-                    </a>
+                    </a> -->
                     <a href="{{ route('merchant.login') }}"
                        class="portal-link @yield('active-merchant')">
                         Merchant
@@ -349,11 +349,11 @@
                 Belum punya akun?
             </div>
             <div style="display:flex; justify-content:center; gap:1rem; margin-top:.5rem;">
-                <a href="{{ route('register') }}"
+                <!-- <a href="{{ route('register') }}"
                    style="font-size:.75rem; color:var(--accent); font-weight:600; text-decoration:none;">
                     Daftar sebagai User
-                </a>
-                <span style="color:var(--bg-border)">|</span>
+                </a> -->
+                <!-- <span style="color:var(--bg-border)">|</span> -->
                 <a href="{{ route('merchant.register') }}"
                    style="font-size:.75rem; color:var(--camel); font-weight:600; text-decoration:none;">
                     Daftar sebagai Merchant
