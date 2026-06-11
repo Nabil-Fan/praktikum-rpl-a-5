@@ -125,6 +125,7 @@
         <div class="sn-label">Sistem</div>
         <a href="{{ route('admin.categories.index') }}" class="sn-item">🏷 Kategori</a>
         <a href="{{ route('admin.accounts.create') }}" class="sn-item active">➕ Tambah Akun</a>
+        <a href="{{ route('admin.map') }}" class="sn-item">🗺 Peta Merchant</a>
     </aside>
 
     <main class="content">

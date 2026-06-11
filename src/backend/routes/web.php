@@ -10,10 +10,12 @@ use App\Http\Controllers\Admin\FoodListingController        as AdminFoodListingC
 use App\Http\Controllers\Admin\AccountController            as AdminAccountController;
 use App\Http\Controllers\Admin\CategoryController           as AdminCategoryController;
 use App\Http\Controllers\Admin\OrderController              as AdminOrderController;
+use App\Http\Controllers\Admin\MapController    as AdminMapController;
 use App\Http\Controllers\Merchant\DashboardController       as MerchantDashboard;
 use App\Http\Controllers\Merchant\FoodListingController     as MerchantFoodListingController;
 use App\Http\Controllers\Merchant\ProfileController         as MerchantProfileController;
 use App\Http\Controllers\Merchant\OrderController           as MerchantOrderController;
+use App\Http\Controllers\Merchant\MapController as MerchantMapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +85,9 @@ Route::middleware(['auth', 'role:merchant'])->prefix('merchant')->name('merchant
     Route::post('/orders/{order}/reject',          [MerchantOrderController::class, 'reject'])->name('orders.reject');
     Route::post('/orders/{order}/ready',           [MerchantOrderController::class, 'markReady'])->name('orders.ready');
     Route::post('/orders/{order}/complete',        [MerchantOrderController::class, 'complete'])->name('orders.complete');
+
+    // map
+    Route::get('/map', [MerchantMapController::class, 'index'])->name('map');
 });
 
 // ── ADMIN ─────────────────────────────────────────────────────────────────
@@ -122,4 +127,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // → admin.orders.index / show
     Route::get('/orders',         [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+
+    // map
+    Route::get('/map', [AdminMapController::class, 'index'])->name('map');
 });

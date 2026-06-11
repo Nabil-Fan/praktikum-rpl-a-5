@@ -201,27 +201,16 @@
     {{-- SIDENAV --}}
     <aside class="sidenav">
         <div class="sn-label">Overview</div>
-        <a href="{{ route('admin.dashboard') }}" class="sn-item active">
-            <span class="sn-icon">📊</span> Dashboard
-        </a>
-
+        <a href="{{ route('admin.dashboard') }}" class="sn-item">📊 Dashboard</a>
         <div class="sn-label">Manajemen</div>
-        <a href="{{ route('admin.merchants.index') }}" class="sn-item">
-            <span class="sn-icon">🏪</span> Verifikasi Merchant
-        </a>
-        <a href="{{ route('admin.users.index') }}" class="sn-item">
-            <span class="sn-icon">👥</span> Pengguna
-        </a>
-        <a href="{{ route('admin.accounts.create') }}" class="sn-item">
-            <span class="sn-icon">➕</span> Tambah Akun
-        </a>
-        <a href="{{ route('admin.food-listings.index') }}" class="sn-item">
-            <span class="sn-icon">🍱</span> Food Listing
-        </a>
+        <a href="{{ route('admin.merchants.index') }}" class="sn-item">🏪 Verifikasi Merchant</a>
+        <a href="{{ route('admin.users.index') }}" class="sn-item active">👥 Pengguna</a>
+        <a href="{{ route('admin.food-listings.index') }}" class="sn-item">🍱 Food Listing</a>
+        <a href="{{ route('admin.orders.index') }}" class="sn-item">📋 Semua Pesanan</a>
         <div class="sn-label">Sistem</div>
-        <a href="{{ route('admin.categories.index') }}" class="sn-item">
-            <span class="sn-icon">🏷</span> Kategori
-        </a>
+        <a href="{{ route('admin.categories.index') }}" class="sn-item">🏷 Kategori</a>
+        <a href="{{ route('admin.accounts.create') }}" class="sn-item">➕ Tambah Akun</a>
+        <a href="{{ route('admin.map') }}" class="sn-item">🗺 Peta Merchant</a>
     </aside>
 
     {{-- CONTENT --}}

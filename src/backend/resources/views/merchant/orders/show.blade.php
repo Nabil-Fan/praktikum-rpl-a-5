@@ -18,21 +18,21 @@
         }
         body { font-family: var(--font-b); background: var(--bg); color: var(--charcoal); min-height: 100vh; display: flex; }
 
-        .sidebar { width: 230px; min-height: 100vh; background: var(--charcoal); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 50; }
-        .sb-brand { padding: 1.4rem 1.4rem .9rem; border-bottom: 1px solid rgba(254,250,224,.08); }
-        .sb-brand-name { font-family: var(--font-d); font-size: 1.2rem; color: var(--cornsilk); }
-        .sb-role { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--camel); margin-top: .15rem; }
-        .sb-user { padding: .7rem 1.4rem; border-bottom: 1px solid rgba(254,250,224,.08); }
-        .sb-name { font-size: .83rem; font-weight: 600; color: var(--cornsilk); }
-        .sb-sub  { font-size: .7rem; color: var(--laurel); margin-top: .1rem; }
-        nav.sb-nav { flex: 1; padding: .75rem 0; }
-        .nav-lbl { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(254,250,224,.28); padding: .7rem 1.4rem .25rem; }
-        .nav-item { display: flex; align-items: center; gap: .65rem; padding: .55rem 1.4rem; font-size: .81rem; color: rgba(254,250,224,.55); text-decoration: none; border-left: 2.5px solid transparent; transition: all .15s; }
-        .nav-item:hover { color: var(--cornsilk); background: rgba(254,250,224,.04); }
-        .nav-item.active { color: var(--cornsilk); border-left-color: var(--camel); background: rgba(185,148,112,.1); }
-        .sb-footer { padding: .9rem 1.4rem; border-top: 1px solid rgba(254,250,224,.08); }
-        .btn-logout { width: 100%; padding: .55rem; background: transparent; border: 1.5px solid rgba(254,250,224,.14); color: rgba(254,250,224,.45); border-radius: 8px; font-family: var(--font-b); font-size: .76rem; font-weight: 600; cursor: pointer; transition: all .2s; }
-        .btn-logout:hover { border-color: rgba(254,250,224,.35); color: var(--cornsilk); }
+        .sidebar { width:230px; min-height:100vh; background:var(--charcoal); display:flex; flex-direction:column; position:fixed; top:0; left:0; z-index:50; }
+        .sb-brand { padding:1.4rem 1.4rem 1rem; border-bottom:1px solid rgba(254,250,224,.07); }
+        .sb-brand-name { font-family:var(--font-d); font-size:1.2rem; color:var(--cornsilk); }
+        .sb-role { font-size:.65rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--camel); margin-top:.2rem; }
+        .sb-user { padding:1rem 1.4rem; border-bottom:1px solid rgba(254,250,224,.07); }
+        .sb-name { font-size:.83rem; font-weight:600; color:var(--cornsilk); }
+        .sb-sub  { font-size:.71rem; color:var(--camel); margin-top:.2rem; }
+        nav.sb-nav { flex:1; padding:.75rem 0; }
+        .nav-label { font-size:.61rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:rgba(254,250,224,.27); padding:.65rem 1.4rem .2rem; }
+        .nav-item { display:flex; align-items:center; gap:.65rem; padding:.55rem 1.4rem; font-size:.8rem; color:rgba(254,250,224,.55); text-decoration:none; border-left:2.5px solid transparent; transition:all .15s; }
+        .nav-item:hover { color:var(--cornsilk); background:rgba(254,250,224,.04); }
+        .nav-item.active { color:var(--cornsilk); border-left-color:var(--camel); background:rgba(185,148,112,.12); font-weight:600; }
+        .sb-footer { padding:1rem 1.4rem; border-top:1px solid rgba(254,250,224,.07); }
+        .btn-logout { width:100%; padding:.55rem; background:transparent; border:1.5px solid rgba(254,250,224,.13); color:rgba(254,250,224,.45); border-radius:8px; font-family:var(--font-b); font-size:.75rem; font-weight:600; cursor:pointer; transition:all .2s; }
+        .btn-logout:hover { border-color:rgba(254,250,224,.4); color:var(--cornsilk); }
 
         .main { margin-left: 230px; flex: 1; padding: 1.75rem 2rem 3rem; }
         .back-link { display: inline-flex; align-items: center; gap: .4rem; font-size: .8rem; color: var(--camel); text-decoration: none; font-weight: 600; margin-bottom: 1.25rem; }
@@ -124,23 +124,16 @@
     </div>
     <div class="sb-user">
         <div class="sb-name">{{ auth()->user()->name }}</div>
-        <div class="sb-sub">{{ $profile?->business_name ?? 'Profil belum diisi' }}</div>
+        <div class="sb-sub">{{ $profile->business_name }}</div>
     </div>
     <nav class="sb-nav">
-        <div class="nav-lbl">Utama</div>
-        <a href="{{ route('merchant.dashboard') }}" class="nav-item">
-            <span>📊</span> Dashboard
-        </a>
-        <a href="{{ route('merchant.listings.index') }}" class="nav-item">
-            <span>🍱</span> Menu Surplus
-        </a>
-        <a href="{{ route('merchant.orders.index') }}" class="nav-item active">
-            <span>📋</span> Pesanan Masuk
-        </a>
-        <div class="nav-lbl">Akun</div>
-        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">
-            <span>🏪</span> Profil Usaha
-        </a>
+        <div class="nav-label">Utama</div>
+        <a href="{{ route('merchant.dashboard') }}" class="nav-item">📊 Dashboard</a>
+        <a href="{{ route('merchant.listings.index') }}" class="nav-item">🍱 Menu Surplus</a>
+        <a href="{{ route('merchant.orders.index') }}" class="nav-item active">📋 Pesanan Masuk</a>
+        <div class="nav-label">Akun</div>
+        <a href="{{ route('merchant.profile.edit') }}" class="nav-item">🏪 Profil Usaha</a>
+        <a href="{{ route('merchant.map') }}" class="nav-item">🗺 Lokasi Usaha</a>
     </nav>
     <div class="sb-footer">
         <form method="POST" action="{{ route('logout') }}" style="margin:0">
