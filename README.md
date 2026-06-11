@@ -229,27 +229,7 @@ docs: update data dictionary tabel orders
 
 ## Progress
 
-### Praktikum 1 — Setup & Git Workflow
-| Tugas | Status |
-|---|---|
-| Kelompok terbentuk dan ketua ditentukan | ✅ |
-| Kontrak tim ditulis | ✅ |
-| Repositori GitHub dibuat | ✅ |
-| Branch `dev` dibuat dan dijadikan default | ✅ |
-| Setiap anggota merge minimal 1 Pull Request | ✅ |
-| Topik diregistrasi | ✅ |
-
-### Praktikum 2 — Analisis & Perancangan
-| Tugas | Status |
-|---|---|
-| Problem statement | ✅ |
-| User stories | ✅ |
-| Product backlog | ✅ |
-| ERD & data dictionary | ✅ |
-| Use case, activity, class diagram | ✅ |
-| Wireframe (Figma) | ✅ |
-
-### Praktikum 3 — Implementasi
+### Praktikum — Implementasi
 | Fitur | Status |
 |---|---|
 | Multi-portal autentikasi (login & registrasi) | ✅ |
