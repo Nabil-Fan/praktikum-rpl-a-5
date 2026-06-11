@@ -1,349 +1,331 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'EcoEats') — Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoEats — @yield('title', 'Masuk ke Portal')</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       base.css — Reset, CSS variables, typography, animations
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+    :root {
+      --bg:      #FEFAE0;
+      --card:    #ffffff;
+      --lbl:     #503321;
+      --sub:     #8A7560;
+      --inp:     #F5F0CE;
+      --brd:     #DDD8B0;
+      --btn:     #B99470;
+      --bth:     #9A7A58;
+      --grn:     #5F6F52;
+      --grnh:    #4A5840;
+      --blu:     #6A7F8A;
+      --red:     #B84040;
+      --org:     #B87820;
+      --inf:     #F8F5DC;
+      --ibd:     #E4DDB0;
+      --shadow:  0 2px 4px rgba(80,51,33,.04), 0 8px 24px rgba(80,51,33,.09);
+    }
 
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--lbl);
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-        :root {
-            --olive:        #5F6F52;   /* Dark Olive Green */
-            --laurel:       #A9B388;   /* Laurel Green */
-            --cornsilk:     #FEFAE0;   /* Cornsilk */
-            --camel:        #B99470;   /* Camel */
-            --charcoal:     #382C23;   /* Charcoal Brown */
+    h1, h2, h3, h4, .playfair { font-family: 'Playfair Display', serif; }
+    .mono  { font-family: 'DM Mono', monospace; }
+    .hide  { display: none !important; }
 
-            /* Semantic aliases */
-            --bg:           var(--cornsilk);
-            --bg-input:     #f5f0d8;
-            --bg-border:    #e8e2c8;
-            --card-bg:      #ffffff;
-            --text-dark:    var(--charcoal);
-            --text-mid:     var(--olive);
-            --text-muted:   var(--camel);
-            --accent:       var(--olive);
-            --accent-hover: var(--charcoal);
-            --accent-light: var(--laurel);
-            --error:        #a13a2a;
-            --white:        #ffffff;
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-thumb { background: var(--brd); border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: transparent; }
 
-            --font-display: 'Fraunces', Georgia, serif;
-            --font-body:    'Plus Jakarta Sans', sans-serif;
-        }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(.985); }
+    }
+    .fade-in { animation: fadeUp .3s ease both; }
 
-        body {
-            font-family: var(--font-body);
-            background-color: var(--bg);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
+    /* ============================================================
+       auth.css — Login / auth page styles
+       ============================================================ */
+    #page-auth {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      background: url('/images/Bg login.jpg') center center / cover no-repeat;
+      background-attachment: fixed;
+      position: relative;
+      overflow: hidden;
+      gap: 20px;
+    }
 
-        /* Background decorative blobs */
-        body::before, body::after {
-            content: '';
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-        body::before {
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(169,179,136,0.2) 0%, transparent 70%);
-            top: -150px; right: -150px;
-        }
-        body::after {
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(185,148,112,0.15) 0%, transparent 70%);
-            bottom: -100px; left: -100px;
-        }
+    #page-auth::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        160deg,
+        rgba(40,22,10,.62)  0%,
+        rgba(60,42,20,.42)  55%,
+        rgba(40,22,10,.70)  100%
+      );
+    }
 
-        .auth-wrapper {
-            width: 100%;
-            max-width: 440px;
-            position: relative;
-            z-index: 1;
-            animation: fadeUp 0.5s ease both;
-        }
+    .logo-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 1;
+    }
+    .logo-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: #ffffff;
+      line-height: 1;
+      text-shadow: 0 2px 12px rgba(0,0,0,.35);
+    }
+    .logo-tag {
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.80);
+      font-weight: 500;
+    }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(254,250,224,.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 20px;
+      padding: 32px 36px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.18);
+      z-index: 1;
+      transition: transform .15s ease;
+      border: 1px solid rgba(255,255,255,.45);
+    }
 
-        /* Brand header */
-        .brand {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .brand-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            margin-bottom: 0.5rem;
-        }
-        .brand-icon {
-            width: 42px; height: 42px;
-            background: var(--olive);
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.25rem;
-        }
-        .brand-name {
-            font-family: var(--font-display);
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--charcoal);
-            letter-spacing: -0.02em;
-        }
-        .brand-tagline {
-            font-size: 0.8rem;
-            color: var(--camel);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
+    .role-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1.5px solid var(--brd);
+      background: var(--inp);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--sub);
+      margin-bottom: 14px;
+    }
+    .role-pill.admin {
+      border-color: #C8BBA0;
+      background: #F5EEE0;
+      color: #7A6040;
+    }
 
-        /* Card */
-        .auth-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2.25rem 2.5rem;
-            box-shadow:
-                0 1px 2px rgba(56,44,35,0.06),
-                0 8px 32px rgba(56,44,35,0.1),
-                0 0 0 1px rgba(56,44,35,0.05);
-        }
+    .auth-card h1   { font-size: 28px; color: var(--lbl); margin-bottom: 6px; }
+    .auth-card p.subtitle { font-size: 14px; color: var(--sub); margin-bottom: 22px; }
 
-        .card-header {
-            margin-bottom: 1.75rem;
-        }
-        .portal-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 0.3rem 0.75rem;
-            border-radius: 999px;
-            margin-bottom: 0.9rem;
-            background: @yield('badge-bg', 'rgba(95,111,82,0.1)');
-            color: @yield('badge-color', '#5F6F52');
-            border: 1px solid @yield('badge-border', 'rgba(95,111,82,0.25)');
-        }
-        .card-title {
-            font-family: var(--font-display);
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--charcoal);
-            line-height: 1.2;
-            margin-bottom: 0.35rem;
-        }
-        .card-subtitle {
-            font-size: 0.875rem;
-            color: var(--camel);
-        }
+    /* Form fields */
+    .auth-form label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sub);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 5px;
+    }
+    .auth-form input[type=email],
+    .auth-form input[type=password] {
+      width: 100%;
+      padding: 11px 14px;
+      background: #FEFAE0;
+      border: 1.5px solid transparent;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--lbl);
+      outline: none;
+      transition: all .2s;
+      margin-bottom: 14px;
+    }
+    .auth-form input:-webkit-autofill,
+    .auth-form input:-webkit-autofill:hover,
+    .auth-form input:-webkit-autofill:focus,
+    .auth-form input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 999px #FEFAE0 inset !important;
+      box-shadow: 0 0 0 999px #FEFAE0 inset !important;
+      -webkit-text-fill-color: #503321 !important;
+      caret-color: #503321;
+    }
+    .auth-form input:focus {
+      border-color: var(--btn);
+      box-shadow: 0 0 0 3px rgba(185,148,112,.18);
+    }
+    /* Error state */
+    .auth-form input.is-invalid {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(184,64,64,.15);
+    }
+    .field-error {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
 
-        /* Alert errors */
-        .alert-error {
-            background: rgba(161,58,42,0.06);
-            border: 1px solid rgba(161,58,42,0.2);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            margin-bottom: 1.25rem;
-            font-size: 0.85rem;
-            color: var(--error);
-        }
-        .alert-error ul { list-style: none; }
-        .alert-error li + li { margin-top: 0.25rem; }
+    .auth-form .check-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      color: var(--sub);
+    }
+    .auth-form .check-wrap input {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--btn);
+      margin-bottom: 0;
+    }
 
-        /* Form */
-        .form-group {
-            margin-bottom: 1.1rem;
-        }
-        .form-label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--olive);
-            margin-bottom: 0.45rem;
-            letter-spacing: 0.01em;
-        }
-        .form-input {
-            width: 100%;
-            padding: 0.7rem 0.95rem;
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            color: var(--charcoal);
-            background: var(--bg-input);
-            border: 1.5px solid var(--bg-border);
-            border-radius: 10px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-        }
-        .form-input:focus {
-            border-color: var(--laurel);
-            background: var(--white);
-            box-shadow: 0 0 0 3px rgba(169,179,136,0.2);
-        }
-        .form-input.is-invalid {
-            border-color: var(--error);
-            box-shadow: 0 0 0 3px rgba(161,58,42,0.1);
-        }
-        .field-error {
-            font-size: 0.78rem;
-            color: var(--error);
-            margin-top: 0.35rem;
-        }
+    .auth-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #FEFAE0;
+      cursor: pointer;
+      background: #503321;
+      transition: all .2s;
+    }
+    .auth-btn:hover  { background: #3B1F0E; }
+    .auth-btn:active { transform: scale(.984); }
+    .auth-btn.admin  { background: #4A5840; }
+    .auth-btn.admin:hover { background: #3a4632; }
 
-        /* Remember + forgot */
-        .form-footer-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.83rem;
-            color: var(--camel);
-            cursor: pointer;
-        }
-        .checkbox-label input[type="checkbox"] {
-            accent-color: var(--olive);
-            width: 15px; height: 15px;
-        }
-        .forgot-link {
-            font-size: 0.83rem;
-            color: var(--olive);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .forgot-link:hover { text-decoration: underline; }
+    .info-box {
+      background: var(--inf);
+      border: 1px solid var(--ibd);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--sub);
+    }
+    .info-box.admin-info { background: #F5EEE0; border-color: #C8BBA0; }
+    .info-box strong { display: block; color: var(--lbl); margin-bottom: 4px; font-size: 13px; }
 
-        /* Submit button */
-        .btn-submit {
-            width: 100%;
-            padding: 0.85rem;
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 0.01em;
-            color: var(--white);
-            background: var(--olive);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-            box-shadow: 0 4px 14px rgba(95,111,82,0.35);
-        }
-        .btn-submit:hover {
-            background: var(--charcoal);
-            box-shadow: 0 4px 20px rgba(56,44,35,0.35);
-        }
-        .btn-submit:active { transform: scale(0.98); }
+    /* Role switcher */
+    .role-switch {
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.85);
+    }
+    .pills-wrap {
+      display: inline-flex;
+      background: rgba(255,255,255,.18);
+      padding: 5px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,.30);
+      gap: 2px;
+    }
+    .pill {
+      padding: 6px 18px;
+      border-radius: 99px;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      background: transparent;
+      color: rgba(255,255,255,.85);
+      transition: all .2s;
+      text-decoration: none;
+    }
+    .pill:hover  { background: rgba(255,255,255,.15); color: #ffffff; }
+    .pill.active {
+      background: #ffffff;
+      color: var(--lbl);
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,.20);
+    }
 
-        /* Portal switcher */
-        .portal-switcher {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--bg-border);
-            text-align: center;
-        }
-        .portal-switcher p {
-            font-size: 0.8rem;
-            color: var(--camel);
-            margin-bottom: 0.75rem;
-        }
-        .portal-links {
-            display: flex;
-            gap: 0.6rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .portal-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.4rem 0.85rem;
-            border-radius: 999px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: 1.5px solid var(--bg-border);
-            color: var(--olive);
-            background: var(--bg);
-            transition: border-color 0.2s, color 0.2s, background 0.2s;
-        }
-        .portal-link:hover {
-            border-color: var(--laurel);
-            color: var(--olive);
-            background: rgba(169,179,136,0.15);
-        }
-        .portal-link.active {
-            border-color: var(--olive);
-            color: var(--olive);
-            background: rgba(95,111,82,0.1);
-        }
-    </style>
-    @stack('styles')
+    /* Laravel flash error */
+    .alert-error {
+      background: rgba(184,64,64,.08);
+      border: 1px solid rgba(184,64,64,.25);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      color: var(--red);
+    }
+  </style>
 </head>
 <body>
-    <div class="auth-wrapper">
-        <div class="brand">
-            <a href="/" class="brand-logo">
-                <span class="brand-icon">icon</span>
-                <span class="brand-name">EcoEats</span>
-            </a>
-            <p class="brand-tagline">Makanan surplus, harga ramah</p>
-        </div>
 
-        <div class="auth-card">
-            @if ($errors->any())
-                <div class="alert-error">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+<div id="page-auth">
 
-            @yield('content')
-        </div>
+  <!-- Logo -->
+  <div class="logo-area">
+    <div class="logo-word">EcoEats</div>
+    <div class="logo-tag">Makan Murah Penting Kenyang</div>
+  </div>
 
-        <div style="text-align:center; margin-top:1.5rem;">
-            <div class="portal-switcher" style="border:none; padding:0; margin:0;">
-                <p>Login sebagai:</p>
-                <div class="portal-links">
-                    <a href="{{ route('login') }}"
-                       class="portal-link @yield('active-user')">
-                        User
-                    </a>
-                    <a href="{{ route('merchant.login') }}"
-                       class="portal-link @yield('active-merchant')">
-                        Merchant
-                    </a>
-                    <a href="{{ route('admin.login') }}"
-                       class="portal-link @yield('active-admin')">
-                        Admin
-                    </a>
-                </div>
-            </div>
-        </div>
+  <!-- Auth card -->
+  <div class="auth-card fade-in">
+
+    {{-- Flash error (wrong credentials etc) --}}
+    @if ($errors->any() && !$errors->has('email') && !$errors->has('password'))
+      <div class="alert-error">
+        @foreach ($errors->all() as $error)
+          <div>{{ $error }}</div>
+        @endforeach
+      </div>
+    @endif
+
+    @yield('content')
+
+  </div>
+
+  <!-- Role switcher -->
+  <div class="role-switch">
+    <span>Login sebagai:</span>
+    <div class="pills-wrap">
+      <a href="{{ route('merchant.login') }}"
+         class="pill @yield('active-merchant')">Merchant</a>
+      <a href="{{ route('admin.login') }}"
+         class="pill @yield('active-admin')">Admin</a>
     </div>
+  </div>
+
+</div>
+
 </body>
 </html>

@@ -1,76 +1,62 @@
 @extends('layouts.auth')
 
 @section('title', 'Login Merchant')
-
-@section('badge-bg', 'rgba(185,148,112,0.12)')
-@section('badge-color', '#7a5c3a')
-@section('badge-border', 'rgba(185,148,112,0.3)')
-
 @section('active-merchant', 'active')
 
 @section('content')
-    <div class="card-header">
-        <span class="portal-badge">
-            Portal Mitra Merchant
-        </span>
-        <h1 class="card-title">Portal Mitra Merchant</h1>
-        <p class="card-subtitle">Kelola makanan surplus dan pesanan dari pelanggan Anda.</p>
+  <span class="role-pill">Portal Mitra Merchant</span>
+  <h1>Portal Merchant</h1>
+  <br>
+
+  <form class="auth-form" method="POST" action="{{ route('merchant.login.post') }}">
+    @csrf
+
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      class="@error('email') is-invalid @enderror"
+      value="{{ old('email') }}"
+      placeholder="username@gmail.com"
+      required
+      autofocus
+      autocomplete="email"
+    >
+    @error('email')
+      <p class="field-error">{{ $message }}</p>
+    @enderror
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      class="@error('password') is-invalid @enderror"
+      placeholder="••••••••"
+      required
+      autocomplete="current-password"
+    >
+    @error('password')
+      <p class="field-error">{{ $message }}</p>
+    @enderror
+
+    <div class="check-wrap">
+      <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+      <label for="remember" style="text-transform:none; letter-spacing:normal; font-size:13px; margin-bottom:0;">
+        Ingat saya
+      </label>
     </div>
 
-    <form method="POST" action="{{ route('merchant.login.post') }}">
-        @csrf
+    <button type="submit" class="auth-btn">Masuk</button>
+  </form>
 
-        <div class="form-group">
-            <label for="email" class="form-label">Email Bisnis</label>
-            <input
-                id="email"
-                type="email"
-                name="email"
-                class="form-input @error('email') is-invalid @enderror"
-                value="{{ old('email') }}"
-                placeholder="toko@emailbisnis.com"
-                required
-                autofocus
-                autocomplete="email"
-            >
-            @error('email')
-                <p class="field-error">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="password" class="form-label">Password</label>
-            <input
-                id="password"
-                type="password"
-                name="password"
-                class="form-input @error('password') is-invalid @enderror"
-                placeholder="••••••••"
-                required
-                autocomplete="current-password"
-            >
-            @error('password')
-                <p class="field-error">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="form-footer-row">
-            <label class="checkbox-label">
-                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                Ingat saya
-            </label>
-        </div>
-
-        <button type="submit" class="btn-submit"
-            style="background:#B99470; box-shadow: 0 4px 14px rgba(185,148,112,0.4);">
-            Masuk ke Portal Merchant
-        </button>
-    </form>
-
-    <div style="margin-top:1.25rem; padding:0.85rem 1rem; background:rgba(185,148,112,0.08); border-radius:10px; border:1px solid rgba(185,148,112,0.2);">
-        <p style="font-size:0.78rem; color:#7a5c3a; line-height:1.5;">
-            <strong>Belum terdaftar sebagai mitra?</strong><br>
-            Hubungi tim EcoEats untuk mendaftarkan usaha Anda sebagai mitra merchant.
-        </p>
-    </div>
+  <div class="info-box">
+    <strong>Belum terdaftar sebagai mitra?</strong>
+    <br>
+    {{-- Ganti '#' dengan route('merchant.register') kalau route-nya sudah dibuat --}}
+    <a href="#" style="color:inherit; font-weight:700; text-decoration:underline;">
+      → Daftar sebagai Merchant
+    </a>
+  </div>
 @endsection
