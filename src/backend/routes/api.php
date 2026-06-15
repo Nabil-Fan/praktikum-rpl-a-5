@@ -28,9 +28,13 @@ Route::prefix('v1')->group(function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
         Route::get('/auth/me',      [AuthController::class, 'me']);
 
-        // Food Listings — katalog makanan (dikerjakan Alena)
-        // Route::get('/food-listings',      [FoodListingController::class, 'index']);
-        // Route::get('/food-listings/{id}', [FoodListingController::class, 'show']);
+        // Categories
+        Route::get('/categories',      [CategoryController::class, 'index']);
+        Route::get('/categories/{id}', [CategoryController::class, 'show']);
+    
+        // Food Listings
+        Route::get('/food-listings',      [FoodListingController::class, 'index']);
+        Route::get('/food-listings/{id}', [FoodListingController::class, 'show']);
 
         // Merchants — data merchant & lokasi (dikerjakan Nabil)
         // Route::get('/merchants',      [MerchantController::class, 'index']);
