@@ -16,75 +16,25 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password_hash',
-        'phone',
-        'role',
-    ];
-
-    protected $hidden = [
-        'password_hash',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'role'       => UserRole::class,
-        'deleted_at' => 'datetime',
-    ];
+    use HasApiTokens, Notifiable;
 
     /**
-     * Override default auth password column.
-     * Laravel secara default mencari kolom 'password',
-     * sedangkan kita menggunakan 'password_hash'.
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
      */
     public function getAuthPassword(): string
     {
         return $this->password_hash;
     }
 
-    // ──────────────────────────────────────────
-    // Helper: cek role tanpa magic string
-    // ──────────────────────────────────────────
+protected $fillable = [
+    'name', 'email', 'password_hash', 'phone', 'role',
+];
 
-    public function isUser(): bool
-    {
-        return $this->role === UserRole::USER;
-    }
+protected $hidden = [
+    'password_hash', 'remember_token',
+];      
 
-    public function isMerchant(): bool
-    {
-        return $this->role === UserRole::MERCHANT;
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role === UserRole::ADMIN;
-    }
-
-    public function isDeleted(): bool
-    {
-        return $this->deleted_at !== null;
-    }
-
-    // ──────────────────────────────────────────
-    // Relasi
-    // ──────────────────────────────────────────
-
-    /**
-     * User memiliki satu profil merchant (jika role = merchant).
-     */
-    public function merchantProfile(): HasOne
-    {
-        return $this->hasOne(MerchantProfile::class, 'user_id');
-    }
-
-    /**
-     * User memiliki banyak pesanan (jika role = user).
-     */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class, 'user_id');
-    }
+    
 }
