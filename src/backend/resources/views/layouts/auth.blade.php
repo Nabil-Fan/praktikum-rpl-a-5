@@ -306,7 +306,7 @@
     <div class="auth-wrapper">
         <div class="brand">
             <a href="/" class="brand-logo">
-                <span class="brand-icon">icon</span>
+                <span class="brand-icon">🌿</span>
                 <span class="brand-name">EcoEats</span>
             </a>
             <p class="brand-tagline">Makanan surplus, harga ramah</p>
