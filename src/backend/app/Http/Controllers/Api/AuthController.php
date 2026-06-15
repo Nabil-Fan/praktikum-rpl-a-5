@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\RegisterRequest;
@@ -28,7 +29,7 @@ class AuthController extends Controller
             'username'      => $request->username,
             'phone'         => $request->phone,
             'password_hash' => Hash::make($request->password),
-            'role'          => 'user',
+            'role'          => UserRole::USER,
         ]);
 
         $accessToken = $newUser->createToken('mobile')->plainTextToken;
@@ -46,7 +47,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         $user = User::where('email', $request->email)
-                    ->where('role', 'user')
+                    ->where('role', UserRole::USER)
                     ->whereNull('deleted_at')
                     ->first();
 
@@ -104,7 +105,7 @@ class AuthController extends Controller
             'email'    => $user->email,
             'username' => $user->username,
             'phone'    => $user->phone,
-            'role'     => $user->role,
+            'role'     => $user->role->value,
         ];
     }
 }
