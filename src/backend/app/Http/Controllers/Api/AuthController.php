@@ -3,97 +3,78 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\LoginRequest;
+use App\Http\Requests\Api\RegisterRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
+/**
+ * AuthController menangani registrasi, login, logout, dan cek profil user mobile.
+ * Validasi input didelegasikan ke Form Request terpisah agar controller tetap ramping.
+ */
 class AuthController extends Controller
 {
     /**
-     * Register user baru (khusus role 'user' — pembeli)
+     * Daftarkan user baru dengan role 'user' (pembeli).
+     * Merchant daftar lewat portal web, bukan lewat endpoint ini.
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
-        $request->validate([
-            'name'     => 'required|string|max:100',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed', // butuh field password_confirmation
-            'phone'    => 'nullable|string|max:20',
-        ]);
-
-        $user = User::create([
+        $newUser = User::create([
             'name'          => $request->name,
             'email'         => $request->email,
-            'password_hash' => Hash::make($request->password), // simpan ke password_hash, bukan password
+            'username'      => $request->username,
             'phone'         => $request->phone,
-            'role'          => 'user', // selalu 'user' — merchant daftar lewat web
+            'password_hash' => Hash::make($request->password),
+            'role'          => 'user',
         ]);
 
-        $token = $user->createToken('mobile')->plainTextToken;
+        $accessToken = $newUser->createToken('mobile')->plainTextToken;
 
         return response()->json([
             'message' => 'Registrasi berhasil.',
-            'token'   => $token,
-            'user'    => [
-                'id'    => $user->id,
-                'name'  => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'role'  => $user->role,
-            ],
+            'token'   => $accessToken,
+            'user'    => $this->formatUserData($newUser),
         ], 201);
     }
 
     /**
-     * Login user mobile dan kembalikan token
+     * Login user mobile dan kembalikan Sanctum token.
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request): JsonResponse
     {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required|string',
-        ]);
-
-        // Cari user, pastikan tidak soft-deleted, dan hanya role 'user'
         $user = User::where('email', $request->email)
                     ->where('role', 'user')
                     ->whereNull('deleted_at')
                     ->first();
 
-        // Cek apakah user ada dan password cocok
-        // Ingat: kolom password kita adalah password_hash
-        if (! $user || ! Hash::check($request->password, $user->password_hash)) {
+        $isPasswordValid = $user && Hash::check($request->password, $user->password_hash);
+
+        if (! $isPasswordValid) {
             return response()->json([
                 'message' => 'Email atau password salah.',
             ], 401);
         }
 
-        // Hapus token lama (opsional — supaya tidak menumpuk)
+        // Hapus token lama supaya tidak menumpuk
         $user->tokens()->delete();
 
-        // Buat token baru
-        $token = $user->createToken('mobile')->plainTextToken;
+        $accessToken = $user->createToken('mobile')->plainTextToken;
 
         return response()->json([
             'message' => 'Login berhasil.',
-            'token'   => $token,
-            'user'    => [
-                'id'    => $user->id,
-                'name'  => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'role'  => $user->role,
-            ],
+            'token'   => $accessToken,
+            'user'    => $this->formatUserData($user),
         ]);
     }
 
     /**
-     * Logout — hapus token aktif
+     * Logout — hapus token yang sedang dipakai.
      */
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
-        // Hapus hanya token yang dipakai sekarang
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([
@@ -102,12 +83,28 @@ class AuthController extends Controller
     }
 
     /**
-     * Ambil data profil user yang sedang login
+     * Ambil data profil user yang sedang login.
      */
-    public function me(Request $request)
+    public function me(Request $request): JsonResponse
     {
         return response()->json([
-            'user' => $request->user(),
+            'user' => $this->formatUserData($request->user()),
         ]);
+    }
+
+    /**
+     * Format data user menjadi array yang konsisten untuk semua response.
+     * Satu tempat definisi — tidak ada duplikasi field di register, login, dan me.
+     */
+    private function formatUserData(User $user): array
+    {
+        return [
+            'id'       => $user->id,
+            'name'     => $user->name,
+            'email'    => $user->email,
+            'username' => $user->username,
+            'phone'    => $user->phone,
+            'role'     => $user->role,
+        ];
     }
 }
