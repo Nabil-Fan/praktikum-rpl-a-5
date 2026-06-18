@@ -18,6 +18,18 @@ Seluruh transaksi diselesaikan melalui mekanisme **self-pickup** — tidak ada l
 
 ---
 
+## Status MVP
+
+**MVP dengan 3 fitur inti telah tercapai dan dapat didemonstrasikan end-to-end.**
+
+| # | Fitur Inti | Status |
+|---|---|---|
+| 1 | Registrasi & Verifikasi Merchant | Selesai |
+| 2 | Manajemen Food Listing Surplus | Selesai |
+| 3 | Order Flow (pesanan → konfirmasi → pickup) | Selesai |
+
+---
+
 ## Informasi Kelompok
 
 | Atribut | Detail |
@@ -43,7 +55,7 @@ Seluruh transaksi diselesaikan melalui mekanisme **self-pickup** — tidak ada l
 | Kategori | Teknologi |
 |---|---|
 | Backend | Laravel 11 (PHP) |
-| Frontend Web | Blade Template Engine |
+| Frontend Web | Blade Template Engine (`@extends`/`@yield`) |
 | Mobile | Kotlin (Android) |
 | Database | MySQL — MariaDB 10.4.32 |
 | Autentikasi Web | Laravel Session Auth |
@@ -82,6 +94,73 @@ Seluruh transaksi diselesaikan melalui mekanisme **self-pickup** — tidak ada l
 
 ---
 
+## Screenshots
+
+### Admin Panel
+
+**Dashboard & Monitoring**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/53163ad5-3f5b-4870-bbea-35ff6f58b788" alt="Admin Dashboard" width="49%" />
+</div>
+
+**Verifikasi Merchant**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/f8a1b6ef-95d6-4068-b766-31337a217213" alt="Admin Map View" width="49%" />
+</div>
+
+**Monitoring Pesanan**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/93699ff7-7a2c-4e1b-a6e8-fc040fcada97" alt="Admin Map View" width="49%" />
+</div>
+
+
+**Peta Merchant**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/c6c4a8d0-e1ba-491e-a761-379efe28f0ce" alt="Admin Map View" width="49%" />
+</div>
+
+**Withdrawal**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/d5c95253-1d91-4a93-aa85-fd3f0ed37daf" alt="Admin Map View" width="49%" />
+</div>
+
+---
+
+### Portal Merchant
+
+**Dashboard Merchant**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/8bdafa00-ac7e-4971-afe8-e7f1b9c2a9bb" alt="Admin Map View" width="49%" />
+</div>
+
+**Kelola Menu Surplus**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/3001491b-f8d9-4460-81af-7cfdde3a9a69" alt="Admin Map View" width="49%" />
+</div>
+
+**Pesanan Masuk**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/bbe95e7c-c47f-45fc-97b2-6e122e0ea54c" alt="Admin Map View" width="49%" />
+</div>
+
+**Detail Pesanan & Verifikasi Pickup**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/249da52b-f55d-4a7b-853f-60074708bfa1" alt="Admin Map View" width="49%" />
+</div>
+
+**Penarikan Dana**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/063e2efd-33ad-48f7-855a-306ff744e481" alt="Admin Map View" width="49%" />
+</div>
+
+
+**Peta Lokasi Usaha**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/6c8fe3c2-cbaa-40fe-9448-8715f6c9f42f" alt="Admin Map View" width="49%" />
+</div>
+
+---
+
 ## Struktur Folder
 
 ```
@@ -111,14 +190,18 @@ praktikum-rpl-a-5/
 
 ### Struktur Backend (`src/backend/`)
 
-Mengikuti struktur standar Laravel 11 dengan pengorganisasian controller berdasarkan role:
-
 ```
 app/Http/Controllers/
 ├── Auth/           ← Login & registrasi (3 portal: user, merchant, admin)
 ├── Admin/          ← Semua fitur panel admin
 ├── Merchant/       ← Semua fitur portal merchant
 └── Api/            ← Endpoint untuk aplikasi mobile (Sanctum)
+
+resources/views/
+├── layouts/
+│   └── merchant.blade.php      ← Layout master merchant (sidebar + header)
+├── admin/
+└── merchant/                   ← Semua view @extends('layouts.merchant')
 ```
 
 ---
@@ -153,17 +236,20 @@ php artisan key:generate
 # DB_USERNAME=root
 # DB_PASSWORD=
 
-# Import database (gunakan file SQL di docs/ atau jalankan migrasi)
+# Import database
 php artisan migrate
 
 # Buat symlink storage
 php artisan storage:link
 
+# Isi data testing
+php artisan db:seed
+
 # Jalankan server
 php artisan serve
 ```
 
-Akun testing yang tersedia setelah seeder:
+Akun testing:
 
 | Email | Password | Role |
 |---|---|---|
@@ -182,8 +268,6 @@ Akun testing yang tersedia setelah seeder:
 ---
 
 ## Cara Kontribusi
-
-Semua anggota tim wajib mengikuti alur kerja berikut:
 
 ```bash
 # 1. Pastikan branch dev terbaru
@@ -222,7 +306,8 @@ Format: `<type>: <deskripsi singkat>`
 ```
 feat: tambah halaman verifikasi merchant
 fix: perbaiki kalkulasi saldo withdrawal
-docs: update data dictionary tabel orders
+refactor: extract layout merchant ke layouts/merchant.blade.php
+docs: update README dengan screenshot MVP
 ```
 
 ---
@@ -232,19 +317,21 @@ docs: update data dictionary tabel orders
 ### Praktikum — Implementasi
 | Fitur | Status |
 |---|---|
-| Multi-portal autentikasi (login & registrasi) | ✅ |
-| Dashboard admin & merchant | ✅ |
-| Verifikasi merchant oleh admin | ✅ |
-| Manajemen akun pengguna | ✅ |
-| CRUD food listing surplus | ✅ |
-| Manajemen kategori | ✅ |
-| Order flow (konfirmasi hingga pickup) | ✅ |
-| Peta lokasi merchant (Leaflet.js) | ✅ |
-| Sistem withdrawal merchant | ✅ |
+| Multi-portal autentikasi (login & registrasi) |  ✔ |
+| Dashboard admin & merchant |  ✔ |
+| Verifikasi merchant oleh admin |  ✔ |
+| Manajemen akun pengguna |  ✔ |
+| CRUD food listing surplus |  ✔ |
+| Manajemen kategori |  ✔ |
+| Order flow (konfirmasi hingga pickup) |  ✔ |
+| Peta lokasi merchant (Leaflet.js) |  ✔ |
+| Sistem withdrawal merchant |  ✔ |
+| Refactoring layout merchant (`@extends`/`@yield`) |  ✔ |
 | API mobile (Sanctum) | 🔄 |
 | Aplikasi Android | 🔄 |
+| Review & rating | ❌ |
 
-> ✅ Selesai &nbsp;|&nbsp; 🔄 Dalam Proses &nbsp;|&nbsp; ❌ Belum Dimulai
+>  ✔ Selesai &nbsp;|&nbsp; 🔄 Dalam Proses &nbsp;|&nbsp; ❌ Belum Dimulai
 
 ---
 
