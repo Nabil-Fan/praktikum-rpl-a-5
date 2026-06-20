@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\FoodListingController;
 use App\Http\Controllers\Api\MerchantController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\UserController;
 
 /*
@@ -35,14 +36,15 @@ Route::prefix('v1')->group(function () {
         Route::get('/food-listings',       [FoodListingController::class, 'index']);
         Route::get('/food-listings/{id}',  [FoodListingController::class, 'show']);
 
+        // Orders
+        Route::get('/orders',                              [OrderController::class,   'index']);
+        Route::post('/orders',                             [OrderController::class,   'store']);
+        Route::get('/orders/{id}',                         [OrderController::class,   'show']);
+        Route::post('/orders/{orderId}/payment-proof', [PaymentController::class, 'uploadProof']);
+
         // Merchants — dikerjakan di branch berikutnya
         // Route::get('/merchants',      [MerchantController::class, 'index']);
         // Route::get('/merchants/{id}', [MerchantController::class, 'show']);
-
-        // Orders — dikerjakan di branch berikutnya
-        // Route::get('/orders',      [OrderController::class, 'index']);
-        // Route::post('/orders',     [OrderController::class, 'store']);
-        // Route::get('/orders/{id}', [OrderController::class, 'show']);
 
         // User Profile — dikerjakan di branch berikutnya
         // Route::get('/user/profile',         [UserController::class, 'showProfile']);
