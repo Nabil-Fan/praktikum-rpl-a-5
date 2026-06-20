@@ -159,12 +159,48 @@
         }
 
 
+        /* ── MOBILE HAMBURGER(Bar untuk mobile)── */
+        .hamburger {
+            display: none;
+            position: fixed; top: 1rem; left: 1rem; z-index: 200;
+            width: 40px; height: 40px;
+            background: var(--charcoal); border: none; border-radius: 10px;
+            cursor: pointer; align-items: center; justify-content: center;
+            flex-direction: column; gap: 5px; padding: 10px;
+        }
+        .hamburger span {
+            display: block; width: 20px; height: 2px;
+            background: var(--cornsilk); border-radius: 2px;
+            transition: all .2s;
+        }
+        .sidebar-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(56,44,35,.5); z-index: 49;
+        }
+        .sidebar-overlay.open { display: block; }
+
+        @media (max-width: 860px) {
+            .sidebar {
+                display: flex;          /* tetap ada tapi tersembunyi di kiri */
+                transform: translateX(-100%);
+                transition: transform .25s ease;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main { margin-left: 0; padding-top: 4rem; }
+            .hamburger { display: flex; }
+        }
     </style>
     @yield('styles')
 </head>
 <body>
 
 {{-- ── SIDEBAR ── --}}
+{{-- Mobile hamburger --}}
+<button class="hamburger" id="hamburger" aria-label="Buka menu">
+    <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <aside class="sidebar">
     <div class="sb-brand">
         <div class="sb-brand-name">🌿 EcoEats</div>
@@ -238,6 +274,28 @@
 
 </main>
 
+<script>
+const hamburger = document.getElementById('hamburger');
+const sidebar   = document.querySelector('.sidebar');
+const overlay   = document.getElementById('sidebarOverlay');
+
+function toggleSidebar() {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+}
+
+function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+}
+
+hamburger.addEventListener('click', toggleSidebar);
+overlay.addEventListener('click', closeSidebar);
+
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', closeSidebar);
+});
+</script>
 @yield('scripts')
 </body>
 </html>
