@@ -110,7 +110,9 @@ class FoodListingController extends Controller
             'original_price' => $foodListing->original_price,
             'discount_price' => $foodListing->discount_price,
             'stock_qty'      => $foodListing->stock_qty,
-            'photo_url'      => $foodListing->photo_url,
+            'photo_url'      => $foodListing->photo_url
+                ? asset('storage/' . $foodListing->photo_url)
+                : null,
             'pickup_start'   => $foodListing->pickup_start?->toIso8601String(),
             'pickup_end'     => $foodListing->pickup_end?->toIso8601String(),
             'status'         => $foodListing->status->value,
