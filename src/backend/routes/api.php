@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\FoodListingController;
 use App\Http\Controllers\Api\MerchantController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\UserController; // BARU: untuk fitur edit profile & ganti password
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +29,11 @@ Route::prefix('v1')->group(function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
         Route::get('/auth/me',      [AuthController::class, 'me']);
 
+        // User Profile — BARU: edit profile & ganti password
+        Route::get('/user/profile',         [UserController::class, 'showProfile']);
+        Route::put('/user/profile',         [UserController::class, 'updateProfile']);
+        Route::put('/user/update-password', [UserController::class, 'updatePassword']);
+
         // Categories
         Route::get('/categories', [CategoryController::class, 'index']);
 
@@ -45,10 +50,5 @@ Route::prefix('v1')->group(function () {
         // Merchants — dikerjakan di branch berikutnya
         // Route::get('/merchants',      [MerchantController::class, 'index']);
         // Route::get('/merchants/{id}', [MerchantController::class, 'show']);
-
-        // User Profile — dikerjakan di branch berikutnya
-        // Route::get('/user/profile',         [UserController::class, 'showProfile']);
-        // Route::put('/user/profile',         [UserController::class, 'updateProfile']);
-        // Route::put('/user/update-password', [UserController::class, 'updatePassword']);
     });
 });
