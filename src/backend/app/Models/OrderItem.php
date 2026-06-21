@@ -38,7 +38,7 @@ class OrderItem extends Model
      * listing_name dan unit_price, BUKAN dari relasi ini.
      * Relasi ini nullable karena listing bisa di-soft-delete.
      */
-    public function listing(): BelongsTo
+    public function foodListing(): BelongsTo
     {
         return $this->belongsTo(FoodListing::class, 'food_listing_id')
                     ->withTrashed(); // listing bisa sudah dihapus, tapi item tetap harus terbaca
