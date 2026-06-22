@@ -42,10 +42,11 @@ Route::prefix('v1')->group(function () {
         Route::get('/food-listings/{id}',  [FoodListingController::class, 'show']);
 
         // Orders
-        Route::get('/orders',                              [OrderController::class,   'index']);
-        Route::post('/orders',                             [OrderController::class,   'store']);
-        Route::get('/orders/{id}',                         [OrderController::class,   'show']);
-        Route::post('/orders/{orderId}/payment-proof', [PaymentController::class, 'uploadProof']);
+        Route::get('/orders',                                  [OrderController::class,   'index']);
+        Route::post('/orders',                                 [OrderController::class,   'store']);
+        Route::get('/orders/{id}',                             [OrderController::class,   'show']);
+        Route::post('/orders/{id}/init-payment',               [OrderController::class,   'initPayment']);
+        Route::post('/orders/{orderId}/payment-proof',         [PaymentController::class, 'uploadProof']);
 
         // Merchants — dikerjakan di branch berikutnya
         // Route::get('/merchants',      [MerchantController::class, 'index']);

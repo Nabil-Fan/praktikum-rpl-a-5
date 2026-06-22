@@ -41,7 +41,9 @@ class OrderService
 
             $this->insertOrderItemRecord($order, $foodListing, $quantity);
 
-            $this->insertPaymentRecord($order, $paymentMethod);
+            // Payment record TIDAK dibuat di sini.
+            // Payment baru dibuat setelah merchant mengkonfirmasi order (status: confirmed).
+            // Lihat: insertPaymentRecord() dipanggil oleh merchant portal saat konfirmasi.
 
             return $order->load(['orderItems.foodListing', 'merchant', 'payments']);
         });
@@ -129,6 +131,32 @@ class OrderService
             'status'           => PaymentStatus::PENDING->value,
             'expired_at'       => now()->addMinutes(self::ORDER_EXPIRY_MINUTES),
         ]);
+    }
+
+    /**
+     * Inisialisasi payment record setelah merchant mengkonfirmasi order.
+     *
+     * Dipanggil dari OrderController saat user polling dan detect status = confirmed.
+     * Guard dobel:
+     *   1. Order harus berstatus confirmed.
+     *   2. Payment record belum boleh ada (idempotent — aman dipanggil berkali-kali).
+     *
+     * @throws \Exception jika order belum confirmed
+     */
+    public function initPaymentAfterConfirmation(Order $order): void
+    {
+        if (! $order->isConfirmed()) {
+            throw new \Exception('Pesanan belum dikonfirmasi oleh merchant.');
+        }
+
+        // Idempotent: kalau payment record sudah ada, skip saja.
+        $alreadyExists = $order->payments()->exists();
+        if ($alreadyExists) {
+            return;
+        }
+
+        $paymentMethod = PaymentMethod::from($order->payment_method);
+        $this->insertPaymentRecord($order, $paymentMethod);
     }
 
     /**

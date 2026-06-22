@@ -33,10 +33,11 @@ class PaymentController extends Controller
             ], 404);
         }
 
-        // Hanya order yang masih pending yang bisa upload bukti
-        if (! $order->isPending()) {
+        // Hanya order yang sudah dikonfirmasi merchant yang bisa upload bukti bayar.
+        // Kalau masih pending (belum dikonfirmasi), user belum boleh bayar.
+        if (! $order->isConfirmed()) {
             return response()->json([
-                'message' => 'Bukti pembayaran hanya bisa diupload untuk pesanan yang masih menunggu konfirmasi.',
+                'message' => 'Bukti pembayaran hanya bisa diupload setelah pesanan dikonfirmasi oleh merchant.',
             ], 422);
         }
 
@@ -51,11 +52,7 @@ class PaymentController extends Controller
 
         // Hapus file lama jika ada (misalnya user re-upload)
         if ($payment->payment_proof_url) {
-            $oldPath = str_replace(
-                asset('storage') . '/',
-                'public/',
-                $payment->payment_proof_url
-            );
+            $oldPath = str_replace('/storage/', 'public/', $payment->payment_proof_url);
             Storage::delete($oldPath);
         }
 
@@ -65,7 +62,7 @@ class PaymentController extends Controller
         $path     = $file->storeAs('public/payment-proofs', $fileName);
 
         // URL yang bisa diakses publik
-        $publicUrl = asset('storage/payment-proofs/' . $fileName);
+        $publicUrl = '/storage/payment-proofs/' . $fileName;
 
         // Update payment_proof_url di tabel payments
         $payment->update([

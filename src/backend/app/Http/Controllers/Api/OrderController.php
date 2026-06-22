@@ -97,6 +97,38 @@ class OrderController extends Controller
     }
 
     /**
+     * Inisialisasi payment record setelah merchant konfirmasi.
+     * Dipanggil oleh frontend saat polling detect status = confirmed,
+     * sebelum user diarahkan ke halaman checkout/pembayaran.
+     *
+     * POST /api/v1/orders/{id}/init-payment
+     */
+    public function initPayment(Request $request, int $orderId): JsonResponse
+    {
+        $order = Order::where('id', $orderId)
+                      ->where('user_id', $request->user()->id)
+                      ->first();
+
+        if (! $order) {
+            return response()->json([
+                'message' => 'Pesanan tidak ditemukan.',
+            ], 404);
+        }
+
+        try {
+            $this->orderService->initPaymentAfterConfirmation($order);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 422);
+        }
+
+        return response()->json([
+            'message' => 'Payment siap. Silakan lanjutkan ke pembayaran.',
+        ]);
+    }
+
+    /**
      * Format ringkasan order untuk tampilan list riwayat pesanan.
      * Hanya field yang dibutuhkan untuk card di halaman Riwayat Pesanan.
      */
