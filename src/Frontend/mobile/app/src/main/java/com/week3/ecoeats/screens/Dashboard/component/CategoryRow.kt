@@ -1,6 +1,7 @@
 package com.week3.ecoeats.screens.Dashboard.component
 
 import androidx.compose.foundation.Image
+import com.week3.ecoeats.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
@@ -25,47 +27,77 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
-import com.week3.ecoeats.data.Category
+import com.week3.ecoeats.data.model.Category
 
+/**
+ * Cocokkan nama kategori dari API ke icon lokal.
+ * Kalau semua kategori tampil dengan icon yang sama, kemungkinan besar
+ * nama dari backend tidak match string di bawah (beda casing, ada spasi,
+ * atau nama kategori belum di-mapping ke sini sama sekali).
+ * Tambahkan branch baru sesuai nama kategori asli dari backend kamu.
+ */
+private fun getCategoryIcon(categoryName: String): Int {
+    val normalized = categoryName.trim().lowercase()
+    return when {
+        normalized.contains("nasi") || normalized.contains("mie") -> R.drawable.ic_nasi
+        normalized.contains("lauk") || normalized.contains("snack") -> R.drawable.ic_lauk_snack
+        normalized.contains("minuman") -> R.drawable.ic_minuman
+        normalized.contains("pastry") || normalized.contains("roti") -> R.drawable.ic_pastry
+        else -> R.drawable.ic_semua
+    }
+}
 
 @Composable
 fun CategorySection(
     categories: List<Category>,
     navController: NavController
 ) {
-    Text(
-        text = "KATEGORI",
-        fontWeight = FontWeight.Bold
-    )
-    Spacer(modifier = Modifier.height(16.dp))
-    LazyRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(horizontal = 8.dp)
-    ) {
-        items(categories) { category ->
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.clickable {
-                    navController.navigate("category/${category.name}")  // ← tambah
-                }
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(64.dp)
-                        .clip(CircleShape)
-                        .background(LaurelGreen)
+    Column {
+        // Padding horizontal disamakan dengan "MENU TERSEDIA" (24.dp)
+        // supaya teks "KATEGORI" sejajar, tidak mepet ke tepi layar.
+        Text(
+            text = "KATEGORI",
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(horizontal = 24.dp)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // LazyRow ini scroll horizontal saja — section ini sendiri TIDAK
+        // dibungkus LazyColumn/verticalScroll, jadi tidak ikut scroll vertikal
+        // ketika dipanggil dari Column tetap (fixed) di DashboardScreen.
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(horizontal = 24.dp)
+        ) {
+            items(categories, key = { it.id }) { category ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.clickable {
+                        navController.navigate("category/${category.id}")
+                    }
                 ) {
-                    Image(
-                        painter = painterResource(category.icon),
-                        contentDescription = category.name,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(64.dp)
-                    )
+                    Box(
+                        modifier = Modifier
+                            .size(64.dp)
+                            .clip(CircleShape)
+                            .background(LaurelGreen)
+                    ) {
+                        Image(
+                            painter = painterResource(
+                                getCategoryIcon(category.name)
+                            ),
+                            contentDescription = category.name,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.size(64.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = category.name)
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(text = category.name)
             }
         }
+
+        Spacer(modifier = Modifier.height(4.dp))
     }
 }

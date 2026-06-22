@@ -1,55 +1,68 @@
 package com.week3.ecoeats.screens.Auth
 
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.week3.ecoeats.ui.theme.DarkOliveGreen
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import com.week3.ecoeats.R
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import com.week3.ecoeats.screens.components.MainImage
-import com.week3.ecoeats.ui.theme.CharcoalBrown
-import com.week3.ecoeats.ui.theme.Cornsilk
-import com.week3.ecoeats.ui.theme.LaurelGreen
-import com.week3.ecoeats.ui.theme.white
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-
+import com.week3.ecoeats.screens.components.MainImage
+import com.week3.ecoeats.ui.theme.Cornsilk
+import com.week3.ecoeats.ui.theme.DarkOliveGreen
+import com.week3.ecoeats.ui.theme.white
+import com.week3.ecoeats.viewmodel.AuthUiState
+import com.week3.ecoeats.viewmodel.AuthViewModel
 
 @Composable
-fun SignIn(navController: NavController,modifier: Modifier = Modifier) {
+fun SignIn(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    authViewModel: AuthViewModel = viewModel()
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val uiState by authViewModel.uiState.collectAsState()
+
+    // TODO: ganti "home" dengan route halaman utama project kamu setelah login berhasil
+    LaunchedEffect(uiState) {
+        if (uiState is AuthUiState.Success) {
+            navController.navigate("dashboard") {
+                popUpTo("auth") { inclusive = true }
+            }
+            authViewModel.resetState()
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -62,8 +75,10 @@ fun SignIn(navController: NavController,modifier: Modifier = Modifier) {
             onEmailChange = { email = it },
             password = password,
             onPasswordChange = { password = it },
+            uiState = uiState,
+            onSubmit = { authViewModel.login(email, password) },
             modifier = Modifier
-                .fillMaxHeight (0.62f)
+                .fillMaxHeight(0.62f)
                 .align(Alignment.BottomCenter)
         )
     }
@@ -114,6 +129,8 @@ fun BottomLayerSignIn(
     onEmailChange: (String) -> Unit,
     password: String,
     onPasswordChange: (String) -> Unit,
+    uiState: AuthUiState,
+    onSubmit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -132,18 +149,31 @@ fun BottomLayerSignIn(
             FieldEmailSignIn(value = email, onValueChange = onEmailChange)
             Spacer(modifier = Modifier.height(32.dp))
             FieldPasswordSignIn(value = password, onValueChange = onPasswordChange)
-            Spacer(modifier = Modifier.height(90.dp))
+
+            if (uiState is AuthUiState.Failure) {
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(text = uiState.message, color = Color.Red, fontSize = 13.sp)
+            }
+
+            Spacer(modifier = Modifier.height(if (uiState is AuthUiState.Failure) 60.dp else 90.dp))
+
             Button(
-                onClick = {},
+                onClick = onSubmit,
+                enabled = uiState !is AuthUiState.Loading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
                 shape = MaterialTheme.shapes.large,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = DarkOliveGreen,
-                    contentColor = white)
+                    contentColor = white
+                )
             ) {
-                Text(text = "Masuk")
+                if (uiState is AuthUiState.Loading) {
+                    CircularProgressIndicator(modifier = Modifier.height(20.dp), color = white)
+                } else {
+                    Text(text = "Masuk")
+                }
             }
         }
     }
