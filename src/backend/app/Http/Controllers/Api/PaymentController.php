@@ -51,7 +51,11 @@ class PaymentController extends Controller
 
         // Hapus file lama jika ada (misalnya user re-upload)
         if ($payment->payment_proof_url) {
-            $oldPath = str_replace('/storage/', 'public/', $payment->payment_proof_url);
+            $oldPath = str_replace(
+                asset('storage') . '/',
+                'public/',
+                $payment->payment_proof_url
+            );
             Storage::delete($oldPath);
         }
 
@@ -61,7 +65,7 @@ class PaymentController extends Controller
         $path     = $file->storeAs('public/payment-proofs', $fileName);
 
         // URL yang bisa diakses publik
-        $publicUrl = '/storage/payment-proofs/' . $fileName;
+        $publicUrl = asset('storage/payment-proofs/' . $fileName);
 
         // Update payment_proof_url di tabel payments
         $payment->update([
