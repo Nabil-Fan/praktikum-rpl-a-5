@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.AsyncImage
+import com.week3.ecoeats.R
 import com.week3.ecoeats.data.model.Category
 import com.week3.ecoeats.data.model.FoodListing
 import com.week3.ecoeats.data.remote.RetrofitInstance
@@ -316,16 +317,12 @@ private fun FoodListingCard(
                     .clip(RoundedCornerShape(8.dp))
                     .background(Color(0xFFE0E0E0))
             ) {
-                if (!listing.imageUrl.isNullOrBlank()) {
-                    val resolvedUrl = resolvePhotoUrl(listing.imageUrl)
-                    Log.d("IMAGE_TEST", resolvedUrl)
-                    AsyncImage(
-                        model = resolvedUrl,
-                        contentDescription = listing.name,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+                AsyncImage(
+                    model = if (listing.imageUrl.isNullOrBlank()) R.drawable.gambar2 else resolvePhotoUrl(listing.imageUrl),
+                    contentDescription = listing.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
 
             Spacer(Modifier.width(12.dp))

@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Sesuai constant STATUS_* di app/Models/Order.php (backend).
- * Status realistis: pending -> confirmed -> ready -> completed,
- * atau pending -> rejected / expired.
  */
 enum class OrderStatus {
     @SerializedName("pending") PENDING,
@@ -18,16 +16,13 @@ enum class OrderStatus {
 
 /**
  * Metode pembayaran yang dikirim ke backend.
- * Sesuai Enum PaymentMethod backend: transfer, ewallet, cash, qris.
- * CASH disediakan untuk kelengkapan enum, tapi tidak ditampilkan sebagai
- * opsi di UI (sesuai keputusan produk — bayar di tempat tidak butuh
- * halaman pembayaran/upload bukti).
+ * TODO: cek app/Enums/PaymentMethod.php — pastiin value string
+ * "qris", "transfer", "ewallet" cocok persis sama yang backend terima.
  */
 enum class PaymentMethod(val apiValue: String) {
     QRIS("qris"),
     TRANSFER("transfer"),
-    EWALLET("ewallet"),
-    CASH("cash")
+    EWALLET("ewallet")
 }
 
 /** Body POST /orders */
@@ -54,7 +49,6 @@ data class OrderListResponse(
     val orders: List<OrderSummaryDto> = emptyList()
 )
 
-/** Sesuai formatOrderSummary() — dipakai untuk Riwayat Pesanan (belum dipakai sekarang) */
 data class OrderSummaryDto(
     val id: Int,
     val pickup_code: String?,
@@ -91,8 +85,7 @@ data class OrderPaymentDto(
 
 /**
  * Sesuai formatOrderDetail() di OrderController.php.
- * Backend gak ngirim field "admin fee" terpisah, jadi dihitung dari
- * selisih total_amount - jumlah subtotal item (lihat adminFee di bawah).
+ * adminFee dihitung dari selisih total_amount - jumlah subtotal item.
  */
 data class OrderResponse(
     val id: Int,

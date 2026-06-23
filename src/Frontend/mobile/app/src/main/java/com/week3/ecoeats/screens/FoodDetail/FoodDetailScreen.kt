@@ -145,7 +145,7 @@ fun FoodDetailScreen(
                         .verticalScroll(rememberScrollState())
                 ) {
                     AsyncImage(
-                        model = if (food.imageUrl.isNullOrEmpty()) R.drawable.gambar1 else resolvePhotoUrl(food.imageUrl),
+                        model = if (food.imageUrl.isNullOrEmpty()) R.drawable.gambar2 else resolvePhotoUrl(food.imageUrl),
                         contentDescription = food.name,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxWidth().height(220.dp)

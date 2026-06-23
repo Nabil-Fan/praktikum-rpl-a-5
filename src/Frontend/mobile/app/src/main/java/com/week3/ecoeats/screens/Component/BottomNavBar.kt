@@ -48,8 +48,8 @@ fun BottomNavBar(
             )
         )
         NavigationBarItem(
-            selected = currentRoute == "pesanan",
-            onClick = { navController.navigate("pesanan") },
+            selected = currentRoute == "order-history",
+            onClick = { navController.navigate("order-history") },
             icon = {
                 Icon(
                     imageVector = Icons.Default.ShoppingCart,

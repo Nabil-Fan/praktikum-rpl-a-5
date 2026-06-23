@@ -31,4 +31,9 @@ interface OrderApi {
         @Path("orderId") orderId: Int,
         @Part proof: MultipartBody.Part
     ): Response<UploadPaymentProofResponse>
+
+    @POST("orders/{orderId}/init-payment")
+    suspend fun initPayment(
+        @Path("orderId") orderId: Int
+    ): Response<Unit>
 }

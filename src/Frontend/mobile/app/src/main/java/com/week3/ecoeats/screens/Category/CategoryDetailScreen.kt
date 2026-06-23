@@ -361,7 +361,13 @@ fun CategoryMenuCard(food: FoodListing, navController: NavController) {
             shape = RoundedCornerShape(12.dp)
         ) {
             AsyncImage(
-                model = if (food.photoUrl.isEmpty()) R.drawable.gambar1 else com.week3.ecoeats.data.util.resolvePhotoUrl(food.photoUrl),
+                model = if (food.photoUrl.isBlank()) {
+                    R.drawable.gambar2
+                } else {
+                    val url = com.week3.ecoeats.data.util.resolvePhotoUrl(food.photoUrl)
+                    android.util.Log.d("PHOTO_URL", "photoUrl raw: '${food.photoUrl}' -> resolved: '$url'")
+                    url
+                },
                 contentDescription = food.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()

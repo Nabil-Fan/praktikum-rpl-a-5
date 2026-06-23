@@ -41,7 +41,6 @@ class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
     private val _uploadState = MutableStateFlow<UploadProofUiState>(UploadProofUiState.Idle)
     val uploadState: StateFlow<UploadProofUiState> = _uploadState.asStateFlow()
 
-    /** Dipanggil dari FoodDetailScreen saat tombol "Place Order" diklik. */
     fun createOrder(foodListingId: Int, quantity: Int, paymentMethod: PaymentMethod) {
         _uiState.value = OrderUiState.Loading
         viewModelScope.launch {
@@ -53,11 +52,23 @@ class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
     }
 
     /**
-     * Dipanggil dari WaitingVerificationScreen. Polling sederhana:
-     * cek status tiap beberapa detik, sampai status berubah dari PENDING.
-     *
-     * TODO: kalau backend nanti pakai WebSocket/Pusher untuk notifikasi
-     * real-time, ganti polling ini dengan listener event.
+     * Fetch order sekali tanpa polling. Dipakai di OrderDetailScreen dan
+     * QrCodeScreen, karena di titik itu order sudah confirmed — tidak perlu
+     * tunggu status berubah.
+     */
+    fun loadOrder(orderId: Int) {
+        _uiState.value = OrderUiState.Loading
+        viewModelScope.launch {
+            when (val result = repository.getOrderDetail(orderId)) {
+                is OrderResult.Success -> _uiState.value = OrderUiState.Resolved(result.order)
+                is OrderResult.Error -> _uiState.value = OrderUiState.Error(result.message)
+            }
+        }
+    }
+
+    /**
+     * Poll terus sampai status bukan PENDING. Dipakai di WaitingVerification
+     * dan PaymentScreen — selama merchant belum konfirmasi, kita tunggu.
      */
     fun pollStatus(orderId: Int) {
         _uiState.value = OrderUiState.Loading
@@ -67,12 +78,19 @@ class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
                 when (val result = repository.getOrderDetail(orderId)) {
                     is OrderResult.Success -> {
                         if (result.order.status != OrderStatus.PENDING) {
+
+                            if (result.order.status == OrderStatus.CONFIRMED) {
+                                repository.initPayment(orderId)
+                            }
+
                             _uiState.value = OrderUiState.Resolved(result.order)
                             resolved = true
+
                         } else {
-                            delay(3000) // jeda sebelum cek lagi
+                            delay(3000)
                         }
                     }
+
                     is OrderResult.Error -> {
                         _uiState.value = OrderUiState.Error(result.message)
                         resolved = true
@@ -84,20 +102,27 @@ class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
 
     fun uploadPaymentProof(orderId: Int, file: File) {
         viewModelScope.launch {
+            android.util.Log.d("UPLOAD", "START")
             _uploadState.value = UploadProofUiState.Loading
-
-            // Convert File -> MultipartBody.Part, karena OrderRepository.uploadPaymentProof
-            // butuh tipe itu (sesuai signature OrderApi.uploadPaymentProof yang pakai @Part).
             val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+            // "payment_proof" harus cocok persis sama $request->file('payment_proof')
+            // di PaymentController.php backend
             val proofPart = MultipartBody.Part.createFormData(
-                name = "proof",
+                name = "payment_proof",
                 filename = file.name,
                 body = requestBody
             )
-
             when (val result = repository.uploadPaymentProof(orderId, proofPart)) {
-                is UploadProofResult.Success -> _uploadState.value = UploadProofUiState.Success(result.proofUrl)
-                is UploadProofResult.Error -> _uploadState.value = UploadProofUiState.Error(result.message)
+
+                is UploadProofResult.Success -> {
+                    android.util.Log.d("UPLOAD", "SUCCESS")
+                    _uploadState.value = UploadProofUiState.Success(result.proofUrl)
+                }
+
+                is UploadProofResult.Error -> {
+                    android.util.Log.d("UPLOAD", "ERROR = ${result.message}")
+                    _uploadState.value = UploadProofUiState.Error(result.message)
+                }
             }
         }
     }

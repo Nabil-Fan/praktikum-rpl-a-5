@@ -9,12 +9,15 @@ import com.week3.ecoeats.screens.Auth.SignIn
 import com.week3.ecoeats.screens.Auth.SignUp
 import com.week3.ecoeats.screens.Category.CategoryDetailScreen
 import com.week3.ecoeats.screens.Checkout.CheckoutScreen
+import com.week3.ecoeats.screens.Checkout.OrderDetailScreen
 import com.week3.ecoeats.screens.Checkout.PaymentScreen
+import com.week3.ecoeats.screens.Checkout.QrCodeScreen
 import com.week3.ecoeats.screens.Checkout.WaitingVerificationScreen
 import com.week3.ecoeats.screens.Dashboard.DashboardScreen
 import com.week3.ecoeats.screens.FoodDetail.FoodDetailScreen
 import com.week3.ecoeats.screens.Maps.MapsScreen
 import com.week3.ecoeats.screens.OrderHistory.OrderHistoryScreen
+import com.week3.ecoeats.screens.Profile.ChangePasswordScreen
 import com.week3.ecoeats.screens.Profile.EditProfileScreen
 import com.week3.ecoeats.screens.Profile.ProfileScreen
 
@@ -67,7 +70,7 @@ fun NavGraph() {
                 navController = navController
             )
         }
-        // ── Checkout flow: Place Order -> menunggu verifikasi -> checkout -> payment ──
+        // ── Checkout flow ──
         composable("waiting-verification/{orderId}") { backStackEntry ->
             val orderId = backStackEntry.arguments
                 ?.getString("orderId")
@@ -95,6 +98,25 @@ fun NavGraph() {
                 navController = navController
             )
         }
+        // ── Post-payment flow: Order Detail → QR Code ──
+        composable("order-detail/{orderId}") { backStackEntry ->
+            val orderId = backStackEntry.arguments
+                ?.getString("orderId")
+                ?.toInt() ?: 0
+            OrderDetailScreen(
+                orderId = orderId,
+                navController = navController
+            )
+        }
+        composable("qr-code/{orderId}") { backStackEntry ->
+            val orderId = backStackEntry.arguments
+                ?.getString("orderId")
+                ?.toInt() ?: 0
+            QrCodeScreen(
+                orderId = orderId,
+                navController = navController
+            )
+        }
         // ── Riwayat Pesanan ──
         composable("order-history") {
             OrderHistoryScreen(navController = navController)
@@ -105,6 +127,9 @@ fun NavGraph() {
         }
         composable("edit-profile") {
             EditProfileScreen(navController = navController)
+        }
+        composable("change-password") {
+            ChangePasswordScreen(navController = navController)
         }
     }
 }
