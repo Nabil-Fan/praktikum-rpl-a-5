@@ -33,6 +33,7 @@ class FoodListing extends Model
         'created_at'     => 'datetime',
         'updated_at'     => 'datetime',
         'deleted_at'     => 'datetime',
+        'status'         => \App\Enums\FoodListingStatus::class,
     ];
 
     // ── Relationships ──────────────────────────────────────────

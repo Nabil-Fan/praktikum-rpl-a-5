@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Api\AuthController;
-// use App\Http\Controllers\Api\FoodListingController;
-// use App\Http\Controllers\Api\MerchantController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\FoodListingController;
+use App\Http\Controllers\Api\MerchantController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,17 +28,25 @@ Route::prefix('v1')->group(function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
         Route::get('/auth/me',      [AuthController::class, 'me']);
 
-        // Food Listings — katalog makanan (dikerjakan Alena)
-        // Route::get('/food-listings',      [FoodListingController::class, 'index']);
-        // Route::get('/food-listings/{id}', [FoodListingController::class, 'show']);
+        // Categories
+        Route::get('/categories', [CategoryController::class, 'index']);
 
-        // Merchants — data merchant & lokasi (dikerjakan Nabil)
+        // Food Listings
+        Route::get('/food-listings',       [FoodListingController::class, 'index']);
+        Route::get('/food-listings/{id}',  [FoodListingController::class, 'show']);
+
+        // Merchants — dikerjakan di branch berikutnya
         // Route::get('/merchants',      [MerchantController::class, 'index']);
         // Route::get('/merchants/{id}', [MerchantController::class, 'show']);
 
-        // Orders — pemesanan (nanti)
-        // Route::get('/orders',        [OrderController::class, 'index']);
-        // Route::post('/orders',       [OrderController::class, 'store']);
-        // Route::get('/orders/{id}',   [OrderController::class, 'show']);
+        // Orders — dikerjakan di branch berikutnya
+        // Route::get('/orders',      [OrderController::class, 'index']);
+        // Route::post('/orders',     [OrderController::class, 'store']);
+        // Route::get('/orders/{id}', [OrderController::class, 'show']);
+
+        // User Profile — dikerjakan di branch berikutnya
+        // Route::get('/user/profile',         [UserController::class, 'showProfile']);
+        // Route::put('/user/profile',         [UserController::class, 'updateProfile']);
+        // Route::put('/user/update-password', [UserController::class, 'updatePassword']);
     });
 });
