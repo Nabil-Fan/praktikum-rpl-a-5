@@ -50,17 +50,11 @@ fun ProfileScreen(
     val uiState by profileViewModel.uiState.collectAsState()
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route ?: "profile"
 
-    // Tarik ulang data profil tiap kali layar ini kembali ke composition
-    // (misal abis balik dari Edit Profile). Perlu, karena ProfileScreen dan
-    // EditProfileScreen masing-masing punya instance ProfileViewModel sendiri
-    // (terikat ke NavBackStackEntry masing-masing), jadi update di satu layar
-    // gak otomatis kelihatan di layar lain tanpa di-refresh ulang dari server.
     LaunchedEffect(Unit) {
         profileViewModel.loadProfile()
     }
 
     // Begitu logout sukses, balik ke layar Auth & hapus seluruh back stack
-    // (biar tombol back gak bisa nyasar balik ke halaman yang butuh login)
     LaunchedEffect(uiState.isLoggedOut) {
         if (uiState.isLoggedOut) {
             navController.navigate("auth") {
@@ -92,7 +86,6 @@ fun ProfileScreen(
                 )
             }
 
-            // ── Avatar + info ──
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

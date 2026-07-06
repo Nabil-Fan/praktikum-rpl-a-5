@@ -87,7 +87,6 @@ fun SignUp(
             onPasswordConfirmationChange = { passwordConfirmation = it },
             uiState = uiState,
             onSubmit = {
-                // phone dikosongkan (null) karena belum ada field-nya di UI ini
                 authViewModel.register(
                     name = name,
                     email = email,

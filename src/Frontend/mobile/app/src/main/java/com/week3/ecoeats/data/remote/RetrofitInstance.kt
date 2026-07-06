@@ -17,11 +17,11 @@ object RetrofitInstance {
     // Diturunkan otomatis dari BASE_URL di atas — supaya cuma ada SATU tempat
     // yang nyimpen alamat server. Dipakai buat gabungin path foto dari backend
     // (misal "food-listings/abc.jpg") jadi URL lengkap yang bisa di-load Coil.
-    // Kalau BASE_URL diganti, ini otomatis ikut berubah juga.
+
     val storageBaseUrl: String
         get() = BASE_URL.substringBefore("/api/") + "/storage/"
 
-    // Shared OkHttpClient builder ─────────────────────────────────────────────
+    // Shared OkHttpClient builder
     private fun buildClient(context: Context): OkHttpClient {
         val tokenManager = TokenManager(context)
 

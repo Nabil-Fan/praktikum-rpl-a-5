@@ -35,8 +35,15 @@ class FoodDetailViewModel(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             when (val result = repository.getFoodListingById(foodId)) {
-                is Result.Success -> _uiState.update { it.copy(food = result.data, isLoading = false) }
-                is Result.Error   -> _uiState.update { it.copy(errorMessage = result.message, isLoading = false) }
+                is Result.Success ->
+                    _uiState.update {
+                        it.copy(
+                            food = result.data,
+                            isLoading = false) }
+                is Result.Error   ->
+                    _uiState.update {
+                        it.copy(errorMessage = result.message,
+                            isLoading = false) }
                 else -> Unit
             }
         }

@@ -41,10 +41,6 @@ fun ChangePasswordScreen(
 ) {
     val uiState by profileViewModel.uiState.collectAsState()
 
-    // Backend menghapus SELURUH personal access token milik user begitu
-    // password berhasil diganti, termasuk token device ini sendiri. Jadi
-    // begitu sukses, kita arahkan balik ke layar Auth & hapus seluruh back
-    // stack — sama persis kayak alur logout di ProfileScreen.
     LaunchedEffect(uiState.isLoggedOut) {
         if (uiState.isLoggedOut) {
             navController.navigate("auth") {

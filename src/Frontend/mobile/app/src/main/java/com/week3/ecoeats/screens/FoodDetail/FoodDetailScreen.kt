@@ -82,8 +82,6 @@ fun FoodDetailScreen(
 
     var selectedPayment by remember { mutableStateOf(PaymentMethod.QRIS) }
 
-    // Begitu order berhasil dibuat (status awal "pending"), pindah ke
-    // halaman Waiting Verification sambil bawa orderId-nya.
     LaunchedEffect(orderState) {
         val state = orderState
         if (state is OrderUiState.Resolved) {
@@ -138,7 +136,6 @@ fun FoodDetailScreen(
             uiState.food != null -> {
                 val food = uiState.food!!
 
-                // ── Konten scroll (gambar, nama, info, jumlah, metode bayar) ──
                 Column(
                     modifier = Modifier
                         .weight(1f)

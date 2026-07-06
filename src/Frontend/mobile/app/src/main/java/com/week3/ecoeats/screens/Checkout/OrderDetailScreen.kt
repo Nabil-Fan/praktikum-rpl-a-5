@@ -310,7 +310,6 @@ fun OrderDetailScreen(
     }
 }
 
-// GANTI fungsi ini yang syntaxnya rusak:
 private fun formatPickupTimeRange(confirmedAt: String?, expiresAt: String?): String {
     val formats = listOf(
         SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()),

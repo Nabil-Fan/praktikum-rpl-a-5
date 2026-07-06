@@ -26,8 +26,6 @@ data class ProfileUiState(
     val errorMessage: String? = null,
     val isLoggedOut: Boolean = false,
 
-    // state form di Edit Profile (terpisah dari data di atas,
-    // biar gampang dibatalin kalau user gak jadi nyimpen)
     val editName: String = "",
     val editEmail: String = "",
     val editUsername: String = "",
@@ -36,7 +34,6 @@ data class ProfileUiState(
     val saveSuccess: Boolean = false,
     val saveError: String? = null,
 
-    // state form di Ganti Password — layar terpisah, manggil endpoint terpisah
     val currentPassword: String = "",
     val newPassword: String = "",
     val newPasswordConfirmation: String = "",
@@ -92,11 +89,6 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     fun onEditUsernameChange(value: String) = _uiState.update { it.copy(editUsername = value) }
     fun onEditPhoneChange(value: String) = _uiState.update { it.copy(editPhone = value) }
 
-    /**
-     * Update profil (name/email/username/phone). Backend bersifat partial
-     * (rules pakai "sometimes"), tapi di sini kita kirim semua field form
-     * sekaligus — aman karena gak ada field yang diwajibkan harus ada.
-     */
     fun saveProfile() {
         viewModelScope.launch {
             val state = _uiState.value
@@ -150,14 +142,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     fun onNewPasswordChange(value: String) = _uiState.update { it.copy(newPassword = value) }
     fun onNewPasswordConfirmationChange(value: String) = _uiState.update { it.copy(newPasswordConfirmation = value) }
 
-    /**
-     * Ganti password lewat endpoint terpisah (PUT /user/update-password).
-     * PENTING: backend menghapus SELURUH personal access token milik user
-     * setelah ganti password berhasil — termasuk token yang lagi dipakai
-     * device ini sendiri. Begitu sukses, kita treat ini kayak logout paksa:
-     * hapus token lokal & set isLoggedOut, biar user diarahkan balik ke
-     * layar login pakai password barunya.
-     */
+
     fun changePassword() {
         viewModelScope.launch {
             val state = _uiState.value
@@ -205,12 +190,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    /**
-     * Ambil pesan error dari response Laravel yang gagal (422/4xx).
-     * Diprioritaskan: error validasi field pertama (misal "Email sudah
-     * dipakai akun lain.") baru fallback ke "message" umum, baru fallback
-     * ke pesan default kalau body-nya gak bisa di-parse sama sekali.
-     */
+
     private fun parseErrorMessage(response: Response<*>, fallback: String): String {
         return try {
             val errorBody = response.errorBody()?.string()

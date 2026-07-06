@@ -47,15 +47,7 @@ import com.week3.ecoeats.viewmodel.OrderViewModel
 
 private val WarmBrownLight = Color(0xFFD2B48C)
 
-/**
- * Halaman Checkout — sekarang murni RINGKASAN order (status, lokasi,
- * metode bayar yang sudah dipilih, breakdown harga). Tidak ada lagi
- * upload bukti pembayaran di sini; itu dipindah ke PaymentScreen,
- * dibuka lewat tombol "Lanjut ke Pembayaran" di bawah.
- *
- * Status REJECTED/EXPIRED: tampilkan teks status saja + tombol kembali ke menu.
- * Status lain (CONFIRMED/READY/COMPLETED): tampilkan ringkasan + tombol lanjut bayar.
- */
+
 @Composable
 fun CheckoutScreen(
     orderId: Int,

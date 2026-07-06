@@ -51,11 +51,7 @@ class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
         }
     }
 
-    /**
-     * Fetch order sekali tanpa polling. Dipakai di OrderDetailScreen dan
-     * QrCodeScreen, karena di titik itu order sudah confirmed — tidak perlu
-     * tunggu status berubah.
-     */
+
     fun loadOrder(orderId: Int) {
         _uiState.value = OrderUiState.Loading
         viewModelScope.launch {
@@ -66,10 +62,7 @@ class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
         }
     }
 
-    /**
-     * Poll terus sampai status bukan PENDING. Dipakai di WaitingVerification
-     * dan PaymentScreen — selama merchant belum konfirmasi, kita tunggu.
-     */
+
     fun pollStatus(orderId: Int) {
         _uiState.value = OrderUiState.Loading
         viewModelScope.launch {

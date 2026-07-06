@@ -5,5 +5,5 @@ data class FoodListing(
     val name: String,
     val restoran: String,
     val harga: Int,
-    val photoUrl: String    // ← URL dari backend, diload pakai Coil
+    val photoUrl: String
 )

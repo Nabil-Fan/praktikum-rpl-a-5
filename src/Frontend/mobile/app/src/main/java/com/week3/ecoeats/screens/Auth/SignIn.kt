@@ -54,7 +54,7 @@ fun SignIn(
     var password by remember { mutableStateOf("") }
     val uiState by authViewModel.uiState.collectAsState()
 
-    // TODO: ganti "home" dengan route halaman utama project kamu setelah login berhasil
+
     LaunchedEffect(uiState) {
         if (uiState is AuthUiState.Success) {
             navController.navigate("dashboard") {

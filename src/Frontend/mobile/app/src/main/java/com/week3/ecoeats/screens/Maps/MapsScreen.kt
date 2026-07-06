@@ -136,9 +136,9 @@ fun MapsScreen(
                                 PreferenceManager.getDefaultSharedPreferences(ctx)
                             )
                             MapView(ctx).apply {
-                                // MAPNIK = tile OpenStreetMap standar, jalan & gang otomatis kelihatan
+                                // MAPNIK = tile OpenStreetMap standar
                                 setTileSource(TileSourceFactory.MAPNIK)
-                                setMultiTouchControls(true) // bisa di-pinch zoom & digeser, tetap dalam box ini
+                                setMultiTouchControls(true)
                                 controller.setZoom(16.0)
                                 controller.setCenter(GeoPoint(lat, lng))
 

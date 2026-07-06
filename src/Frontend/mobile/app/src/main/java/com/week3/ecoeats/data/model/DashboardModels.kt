@@ -19,7 +19,7 @@ data class CategoryListResponse(
     val message: String? = null
 )
 
-// ── Merchant (embedded in FoodListing) ─────────────────────────────────────
+// ── Merchant
 
 data class MerchantProfile(
     val id: Int,
@@ -37,7 +37,6 @@ data class FoodListing(
     val name: String,
     @SerializedName("original_price") val originalPrice: Double,
     @SerializedName("discount_price") val discountedPrice: Double,
-//    @SerializedName("discount_percent") val discountPercent: Double? = null,
     @SerializedName("stock_qty") val stock: Int,
     val status: String,
     val description: String? = null,

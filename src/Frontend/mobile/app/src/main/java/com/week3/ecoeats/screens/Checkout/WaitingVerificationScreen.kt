@@ -35,7 +35,6 @@ import com.week3.ecoeats.viewmodel.OrderViewModel
 /**
  * Halaman terpisah yang tampil setelah klik "Place Order" di FoodDetailScreen,
  * sebelum sampai ke CheckoutScreen. Selama di sini, app menunggu (polling)
- * keputusan merchant: diterima atau ditolak.
  */
 @Composable
 fun WaitingVerificationScreen(
@@ -49,13 +48,11 @@ fun WaitingVerificationScreen(
     )
     val uiState by viewModel.uiState.collectAsState()
 
-    // Mulai polling status begitu halaman ini dibuka.
     LaunchedEffect(orderId) {
         viewModel.pollStatus(orderId)
     }
 
-    // Begitu status sudah pasti (bukan loading lagi), pindah ke Checkout
-    // dan kirim order-nya supaya CheckoutScreen tidak perlu fetch ulang.
+    // merchat acc, pindah ke Checkout
     LaunchedEffect(uiState) {
         val state = uiState
         if (state is OrderUiState.Resolved) {
@@ -90,7 +87,6 @@ fun WaitingVerificationScreen(
                     modifier = Modifier.padding(top = 8.dp)
                 )
             }
-            // Idle & Loading ditampilin sama — spinner + teks nunggu
             is OrderUiState.Idle, is OrderUiState.Loading, is OrderUiState.Resolved -> {
                 CircularProgressIndicator(
                     color = DarkOliveGreen,

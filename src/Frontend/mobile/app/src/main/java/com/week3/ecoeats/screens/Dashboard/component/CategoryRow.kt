@@ -53,8 +53,6 @@ fun CategorySection(
     navController: NavController
 ) {
     Column {
-        // Padding horizontal disamakan dengan "MENU TERSEDIA" (24.dp)
-        // supaya teks "KATEGORI" sejajar, tidak mepet ke tepi layar.
         Text(
             text = "KATEGORI",
             fontWeight = FontWeight.Bold,
@@ -62,9 +60,6 @@ fun CategorySection(
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        // LazyRow ini scroll horizontal saja — section ini sendiri TIDAK
-        // dibungkus LazyColumn/verticalScroll, jadi tidak ikut scroll vertikal
-        // ketika dipanggil dari Column tetap (fixed) di DashboardScreen.
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp),

@@ -3,8 +3,8 @@ package com.week3.ecoeats.data.model
 /**
  * Body request untuk POST /api/v1/auth/register.
  * password_confirmation diasumsikan wajib (pola rule "confirmed" di Laravel) —
- * cek isi RegisterRequest.php kamu, hapus field ini kalau ternyata tidak dipakai.
  */
+
 data class RegisterRequest(
     val name: String,
     val email: String,
@@ -22,11 +22,6 @@ data class LoginRequest(
     val password: String
 )
 
-/**
- * Bentuk response yang konsisten dari AuthController (register, login, logout, me).
- * Semua field nullable karena tidak semua endpoint mengisi semuanya
- * (contoh: /auth/me cuma isi "user", tidak ada "token" atau "message").
- */
 data class AuthResponse(
     val message: String? = null,
     val token: String? = null,

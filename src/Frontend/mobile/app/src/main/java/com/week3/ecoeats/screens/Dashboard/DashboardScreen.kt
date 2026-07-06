@@ -58,7 +58,6 @@ private val TextSecondary = Color(0xFF6B6B6B)
 fun DashboardScreen(
     navController: NavController,
     // Default-nya langsung navigate via navController.
-    // Klik kartu ATAU tombol "Detail" -> ke halaman Detail Menu.
     // Klik tombol "Maps" -> ke halaman Maps.
     onDetailClick: (Int) -> Unit = { id -> navController.navigate("food-detail/$id") },
     onMapsClick: (Int) -> Unit = { id -> navController.navigate("maps/$id") }
@@ -79,8 +78,6 @@ fun DashboardScreen(
     ) {
         MainImage()
 
-        // Column utama: header & kategori FIXED (tidak ikut scroll vertikal),
-        // hanya "Menu Tersedia" yang scrollable lewat LazyColumn ber-weight.
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -105,7 +102,6 @@ fun DashboardScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // ── FIXED: Kategori (scroll horizontal saja, bukan vertikal) ──
             CategorySection(
                 categories = state.categories,
                 navController = navController
@@ -122,9 +118,6 @@ fun DashboardScreen(
                 )
             )
 
-            // ── SCROLLABLE: hanya bagian ini yang scroll vertikal ─────────
-            // weight(1f) membatasi tinggi area ini supaya tidak menutupi
-            // header/kategori di atas maupun BottomNavBar di bawah.
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
