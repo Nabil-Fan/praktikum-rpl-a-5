@@ -75,8 +75,8 @@
             @else
                 🍽
             @endif
-            <span class="lcard-status-tag st-{{ $listing->status }}">
-                {{ match($listing->status) { 'available'=>'Tersedia','sold_out'=>'Habis',default=>'Nonaktif' } }}
+            <span class="lcard-status-tag st-{{ $listing->statusValue() }}">
+                {{ $listing->statusLabel() }}
             </span>
             @php $disc = $listing->discountPercent(); @endphp
             @if($disc > 0)

@@ -43,4 +43,9 @@ class OrderItem extends Model
         return $this->belongsTo(FoodListing::class, 'food_listing_id')
                     ->withTrashed(); // listing bisa sudah dihapus, tapi item tetap harus terbaca
     }
+
+    public function listing(): BelongsTo
+    {
+        return $this->foodListing();
+    }
 }

@@ -192,12 +192,8 @@
                             @endif
                         </td>
                         <td>
-                            <span class="badge b-{{ $listing->status }}">
-                                {{ match($listing->status) {
-                                    'available'   => 'Available',
-                                    'unavailable' => 'Unavailable',
-                                    'sold_out'    => 'Sold Out',
-                                } }}
+                            <span class="badge b-{{ $listing->statusValue() }}">
+                                {{ $listing->statusLabel() }}
                             </span>
                         </td>
                         <td>
