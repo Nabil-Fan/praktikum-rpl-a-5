@@ -56,13 +56,18 @@ Seluruh transaksi diselesaikan melalui mekanisme **self-pickup** — tidak ada l
 |---|---|
 | Backend | Laravel 11 (PHP) |
 | Frontend Web | Blade Template Engine (`@extends`/`@yield`) |
-| Mobile | Kotlin (Android) |
+| Mobile | Kotlin + Jetpack Compose (Android) |
 | Database | MySQL — MariaDB 10.4.32 |
 | Autentikasi Web | Laravel Session Auth |
 | Autentikasi Mobile | Laravel Sanctum (token-based) |
-| Peta | Leaflet.js + OpenStreetMap |
+| Peta (Web) | Leaflet.js + OpenStreetMap |
+| Peta (Mobile) | OSMDroid + OpenStreetMap |
+| HTTP Client Mobile | Retrofit 2 |
+| QR Code | ZXing (generate kode pickup) |
+| Image Loading | Coil |
+| Arsitektur Mobile | MVVM + StateFlow |
 | Version Control | Git & GitHub |
-| Editor | VS Code |
+| Editor | VS Code / Android Studio |
 
 ---
 
@@ -89,7 +94,13 @@ Seluruh transaksi diselesaikan melalui mekanisme **self-pickup** — tidak ada l
 ### Aplikasi Mobile (Android)
 - Login dan registrasi akun pembeli
 - Jelajahi katalog makanan surplus
-- Pesan makanan dan dapatkan kode pickup unik
+- Detail listing: foto, harga, kuantitas, lokasi merchant
+- Alur pemesanan lengkap: pilih item → checkout → pilih metode pembayaran
+- Layar pembayaran: QRIS (gambar QR statis), transfer bank, atau e-wallet
+- Upload bukti pembayaran dari galeri
+- Layar menunggu verifikasi pembayaran oleh merchant dengan polling status otomatis
+- QR Code pickup: di-generate di sisi mobile menggunakan kode unik dari server (ZXing)
+- Detail pesanan: peta lokasi merchant (OSMDroid), estimasi waktu pickup, daftar item + total
 - Lacak status pesanan secara real-time
 
 ---
@@ -205,6 +216,74 @@ resources/views/
 ```
 
 ---
+### Struktur Mobile (`src/mobile/`)
+
+```text
+com.week3.ecoeats/
+├── data/
+│   ├── local/
+│   │   └── TokenManager.kt
+│   ├── model/
+│   │   ├── AuthModels.kt
+│   │   ├── DashboardModels.kt
+│   │   ├── OrderModels.kt
+│   │   └── ProfileModels.kt
+│   ├── remote/
+│   │   ├── AuthApi.kt
+│   │   ├── AuthRepository.kt
+│   │   ├── DashboardRepository.kt
+│   │   ├── FoodListingApi.kt
+│   │   ├── OrderApi.kt
+│   │   ├── OrderRepository.kt
+│   │   └── RetrofitInstance.kt
+│   └── util/
+│
+├── screens/
+│   ├── Auth/
+│   │   ├── AuthScreen.kt
+│   │   ├── SignIn.kt
+│   │   └── SignUp.kt
+│   ├── Category/
+│   │   └── CategoryDetailScreen.kt
+│   ├── Checkout/
+│   │   ├── CheckoutScreen.kt
+│   │   ├── OrderDetailScreen.kt
+│   │   ├── PaymentScreen.kt
+│   │   ├── QrCodeScreen.kt
+│   │   └── WaitingVerificationScreen.kt
+│   ├── Component/
+│   ├── Dashboard/
+│   │   ├── component/
+│   │   │   ├── CategoryRow.kt
+│   │   │   ├── MenuSection.kt
+│   │   │   └── SearchBar.kt
+│   │   └── DashboardScreen.kt
+│   ├── FoodDetail/
+│   │   └── FoodDetailScreen.kt
+│   ├── Maps/
+│   │   └── MapsScreen.kt
+│   ├── Navigations/
+│   │   └── NavGraph.kt
+│   ├── OrderHistory/
+│   │   └── OrderHistoryScreen.kt
+│   └── Profile/
+│
+├── ui/theme/
+│   ├── Color.kt
+│   ├── Theme.kt
+│   └── Type.kt
+│
+├── viewmodel/
+│   ├── AuthViewModel.kt
+│   ├── CategoryDetailViewModel.kt
+│   ├── DashboardViewModel.kt
+│   ├── FoodDetailViewModel.kt
+│   ├── OrderHistoryViewModel.kt
+│   ├── OrderViewModel.kt
+│   └── ProfileViewModel.kt
+│
+└── MainActivity.kt
+```
 
 ## Setup & Instalasi
 
@@ -317,18 +396,24 @@ docs: update README dengan screenshot MVP
 ### Praktikum — Implementasi
 | Fitur | Status |
 |---|---|
-| Multi-portal autentikasi (login & registrasi) |  ✔ |
-| Dashboard admin & merchant |  ✔ |
-| Verifikasi merchant oleh admin |  ✔ |
-| Manajemen akun pengguna |  ✔ |
-| CRUD food listing surplus |  ✔ |
-| Manajemen kategori |  ✔ |
-| Order flow (konfirmasi hingga pickup) |  ✔ |
-| Peta lokasi merchant (Leaflet.js) |  ✔ |
-| Sistem withdrawal merchant |  ✔ |
-| Refactoring layout merchant (`@extends`/`@yield`) |  ✔ |
-| API mobile (Sanctum) | 🔄 |
-| Aplikasi Android | 🔄 |
+| Multi-portal autentikasi (login & registrasi) | ✔ |
+| Dashboard admin & merchant | ✔ |
+| Verifikasi merchant oleh admin | ✔ |
+| Manajemen akun pengguna | ✔ |
+| CRUD food listing surplus | ✔ |
+| Manajemen kategori | ✔ |
+| Order flow web (konfirmasi hingga pickup) | ✔ |
+| Peta lokasi merchant — web (Leaflet.js) | ✔ |
+| Sistem withdrawal merchant | ✔ |
+| Refactoring layout merchant (`@extends`/`@yield`) | ✔ |
+| API mobile — Sanctum auth + order endpoints | ✔ |
+| Mobile: Login & registrasi | ✔ |
+| Mobile: Katalog & detail listing | ✔ |
+| Mobile: Checkout & pilih metode pembayaran | ✔ |
+| Mobile: Upload bukti pembayaran | ✔ |
+| Mobile: Waiting verification (polling status) | ✔ |
+| Mobile: QR Code pickup (ZXing) | ✔ |
+| Mobile: Order detail + peta merchant (OSMDroid) | ✔ |
 | Review & rating | ❌ |
 
 >  ✔ Selesai &nbsp;|&nbsp; 🔄 Dalam Proses &nbsp;|&nbsp; ❌ Belum Dimulai
