@@ -79,15 +79,16 @@ dan proyek ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 - Active nav state via `@section('active_nav')` yang dievaluasi di layout
 
 #### Aplikasi Mobile (Android/Kotlin)
-- Login dan registrasi user via API Sanctum dengan token storage di DataStore Preferences
-- Dashboard dengan katalog food listing dari backend, filter kategori, dan search
-- Halaman detail listing dengan foto, info, pilihan metode bayar, dan quantity selector
-- Place order dan alur checkout: waiting verification → checkout → payment → order detail → QR code pickup
-- Upload bukti pembayaran dari galeri perangkat
-- Riwayat pesanan dan pelacakan status secara real-time
-- Halaman profil dengan edit profil dan ganti password
-- Peta lokasi merchant menggunakan integrasi maps
-- Navigation Compose dengan 15+ route yang terdefinisi di NavGraph
+- Login dan registrasi user melalui API Laravel Sanctum dengan penyimpanan token menggunakan DataStore Preferences
+- Dashboard yang menampilkan katalog food listing dengan fitur pencarian dan filter kategori
+- Halaman detail makanan yang menampilkan foto, informasi produk, quantity selector, dan pilihan metode pembayaran
+- Alur pemesanan end-to-end: Food Detail → Waiting Verification → Checkout → Payment → Order Detail → QR Code Pickup
+- Polling status pesanan secara real-time selama proses verifikasi merchant
+- Upload bukti pembayaran dari galeri perangkat menggunakan multipart request
+- Riwayat pesanan beserta pelacakan status pesanan
+- Halaman profil pengguna dengan fitur edit profil dan ganti password
+- Menampilkan lokasi merchant menggunakan OSMDroid (OpenStreetMap)
+- Navigation Compose dengan lebih dari 15 route yang terdefinisi di NavGraph
 
 #### API (Laravel Sanctum)
 - `POST /api/auth/register` — registrasi user baru
