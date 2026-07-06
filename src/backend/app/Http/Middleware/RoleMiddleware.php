@@ -26,15 +26,16 @@ class RoleMiddleware
             return redirect()->route('login');
         }
 
-        $userRole = Auth::user()->role;
+        $user = Auth::user();
+        $userRole = $user->role instanceof \BackedEnum ? $user->role->value : $user->role;
 
         // Cek juga soft delete
-        if (Auth::user()->deleted_at !== null) {
+        if ($user->deleted_at !== null) {
             Auth::logout();
             return redirect()->route('login')->withErrors(['email' => 'Akun Anda telah dinonaktifkan.']);
         }
 
-        if (! in_array($userRole, $roles)) {
+        if (! in_array($userRole, $roles, true)) {
             // User sudah login tapi role salah — logout dan redirect ke portal yang benar
             return redirect()->route('login')->withErrors([
                 'email' => 'Anda tidak memiliki akses ke halaman ini.',

@@ -66,7 +66,28 @@ class FoodListing extends Model
 
     public function isAvailable(): bool
     {
-        return $this->status === 'available' && $this->stock_qty > 0;
+        return $this->statusValue() === 'available' && $this->stock_qty > 0;
+    }
+
+    public function statusValue(): string
+    {
+        $status = $this->status;
+
+        if ($status instanceof \App\Enums\FoodListingStatus) {
+            return $status->value;
+        }
+
+        return (string) $status;
+    }
+
+    public function statusLabel(): string
+    {
+        return match ($this->statusValue()) {
+            'available'   => 'Available',
+            'unavailable' => 'Unavailable',
+            'sold_out'    => 'Sold Out',
+            default       => 'Unknown',
+        };
     }
 
     // ── Scopes ────────────────────────────────────────────────

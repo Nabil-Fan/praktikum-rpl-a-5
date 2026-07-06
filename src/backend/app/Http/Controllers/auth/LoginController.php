@@ -99,7 +99,7 @@ class LoginController extends Controller
         }
 
         // Validasi role sesuai portal
-        if ($user->role !== $expectedRole) {
+        if ($user->role->value !== $expectedRole) {
             throw ValidationException::withMessages([
                 'email' => 'Akun ini tidak terdaftar sebagai ' . $this->roleLabel($expectedRole) . '.',
             ]);
