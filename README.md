@@ -346,6 +346,44 @@ Akun testing:
 
 ---
 
+## Troubleshooting
+
+### Backend (Laravel)
+
+**`'php' is not recognized as an internal or external command`**
+PHP belum masuk PATH Windows. Tambahkan `C:\xampp\php\` ke System Environment Variables → Path, lalu restart terminal.
+
+**`SQLSTATE: Connection refused` atau `Access denied`**
+MySQL di XAMPP belum berjalan. Buka XAMPP Control Panel → klik **Start** di baris MySQL.
+
+**Login berhasil tapi langsung balik ke halaman login**
+Masalah session. Pastikan:
+1. Buka aplikasi di `http://127.0.0.1:8000`, bukan `http://localhost:8000`
+2. File `.env` punya `SESSION_DOMAIN=` (kosong, bukan string `"null"`)
+3. Jalankan `php artisan config:clear`
+
+**Foto yang diupload tidak muncul**
+Symlink storage belum dibuat. Jalankan `php artisan storage:link`.
+
+**`Class not found` setelah pull**
+Ada file baru yang ditambahkan tim. Jalankan `composer dump-autoload`.
+
+**`SQLSTATE: 1146 Table doesn't exist`**
+Migration belum dijalankan. Jalankan `php artisan migrate`.
+
+---
+
+### Mobile (Android)
+
+**`Unable to resolve host` atau `Connection refused` saat request API**
+BASE_URL di konfigurasi Retrofit belum disesuaikan. Ganti IP di `RetrofitInstance.kt` dengan IP lokal server Laravel (cek dengan `ipconfig` di Windows). Pastikan HP dan laptop terhubung ke jaringan Wi-Fi yang sama.
+
+**Build gagal dengan error `Gradle sync failed`**
+Sync Gradle ulang: File → Sync Project with Gradle Files, atau jalankan `./gradlew build` di terminal.
+
+**Aplikasi crash saat buka halaman peta**
+Pastikan perangkat atau emulator memiliki koneksi internet aktif karena tile peta diunduh dari OpenStreetMap.
+
 ## Cara Kontribusi
 
 ```bash
